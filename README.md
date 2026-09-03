@@ -15,7 +15,7 @@ A focused GenLayer DApp for hash-bound evidence of commercial water-filter cartr
 - A separate 0.01 GEN expiry lifecycle rejected early recovery in simulation, then accepted a permissionless recovery from the technician wallet after deadline. The finalized child transfer returned the full escrow and left contract balance zero. See `verification/EXPIRY_RECOVERY_RESULTS.md`; this closes F7 for a funded job with no proof.
 - Unsigned source-failure previews for a pinned 404 and a pinned oversized response both failed closed as `INSUFFICIENT_EVIDENCE / EVIDENCE_UNAVAILABLE` with unchanged state. See `verification/SOURCE_FAILURE_PREVIEW_RESULTS.md`; F4 remains partial.
 - English-only frontend with supplied logo, local proof preparation, guarded wallet workflows and persistent transaction reconciliation.
-- The hosted frontend identifies the source-verified Studionet contract but keeps all live writes disabled while `liveAuditVerified` remains false.
+- The frontend identifies the source-verified Studionet contract but keeps all live writes disabled while `liveAuditVerified` remains false.
 - Public-source negative/ambiguous fixtures found and HTTP/hash checked. A repository-owned synthetic positive triplet is included and explicitly labeled; it is not a real-world service record.
 - Two earlier deployments were tested and refunded after non-confirming assessments; see `verification/AUDIT.md` and the original receipt files. Neither is a release candidate.
 - The current revision checks all three images in two calls and preserves proof on model runtime/schema errors. Actual escrow positive preview returned SERVICE_CONFIRMED and the funded happy lifecycle finalized with majority agreement. The remaining live adversarial matrix is open.
