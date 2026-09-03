@@ -6,6 +6,12 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).parent
+
+def validate_image(body: bytes) -> None:
+    if not 0 < len(body) <= 4_000_000:
+        raise ValueError("Image must be non-empty and at most 4 MB")
+    if not (body.startswith(b"\x89PNG\r\n\x1a\n") or body.startswith(b"\xff\xd8\xff\xe0")):
+        raise ValueError("Unsupported GenVM image format; use original PNG, not WebP or a renamed file")
 def canonical_https(value: str) -> bool:
     if not value.startswith("https://") or any(char in value for char in "?#\\"):
         return False
@@ -41,7 +47,10 @@ def main() -> int:
     }
     if any(path.parent != ROOT or not path.is_file() for path in selected.values()):
         raise SystemExit("Image files must exist directly inside the fixture directory")
-    digests = {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in selected.items()}
+    bodies = {name: path.read_bytes() for name, path in selected.items()}
+    for body in bodies.values():
+        validate_image(body)
+    digests = {name: hashlib.sha256(body).hexdigest() for name, body in bodies.items()}
     manifest = {
         "schema": "filterproof-service-v1",
         "job_id": str(args.job_id),

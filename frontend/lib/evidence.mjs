@@ -1,4 +1,12 @@
 import { addressOK, uint } from './protocol.mjs';
+export function validateImageBytes(buffer) {
+  const bytes = new Uint8Array(buffer);
+  if (!bytes.length || bytes.length > 4_000_000)
+    throw new Error('Each image must be non-empty and no larger than 4 MB.');
+  const prefixes = [[137, 80, 78, 71, 13, 10, 26, 10], [255, 216, 255, 224]];
+  if (!prefixes.some((prefix) => prefix.every((byte, index) => bytes[index] === byte)))
+    throw new Error('Unsupported image format. Use an original PNG (recommended) or JFIF JPEG. WebP and renamed files are not supported.');
+}
 export function canonicalHttps(value) {
   if (
     typeof value !== 'string' ||

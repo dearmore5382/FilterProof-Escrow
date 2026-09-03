@@ -1,0 +1,70 @@
+{
+  "contract": "0x9Bed86f3ccf45b778c09e33A91aD14e5C65c3857",
+  "rpc": "https://studio.genlayer.com/api",
+  "evidence_kind": "remote unsigned leader snapshot simulations; NOT transactions or consensus evidence",
+  "signed_transactions": 0,
+  "attached_value": 0,
+  "cases": [
+    {
+      "case": "control",
+      "started_at": "2026-09-03T08:08:47.039398+00:00",
+      "source_sha256": "9c20d05aa62bc52d0e4280af6789dcd745675eaee0a986f8b209d19ced605ddf",
+      "args": [
+        "control",
+        [],
+        []
+      ],
+      "checkpoint_status": "DIAGNOSTIC_VERIFIED_NOT_SERVICE_PROOF",
+      "execution_result": "SUCCESS",
+      "result": "CONTROL_OK",
+      "error": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "case": "detail-json",
+      "started_at": "2026-09-03T08:09:37.334712+00:00",
+      "source_sha256": "9c20d05aa62bc52d0e4280af6789dcd745675eaee0a986f8b209d19ced605ddf",
+      "args": [
+        "json",
+        [
+          "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/after.png",
+          "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/serial-gauge.png"
+        ],
+        [
+          "f4c015065b50dfe6ebf30b6e18c53067c80dd48811dd59a8c96aedf48cb29173",
+          "026e18e5bb0ecf19a462f11162a96d87ad1916a592d9072118ece8232ffc5aa0"
+        ]
+      ],
+      "checkpoint_status": "DIAGNOSTIC_VERIFIED_NOT_SERVICE_PROOF",
+      "execution_result": "SUCCESS",
+      "result": "{\"binding\":\"980ff415afe6a27bc6b44eae789726534417f97cce0644730e5f91d78dc7a372\",\"images\":2,\"output_type\":\"dict\",\"status\":\"MODEL_ROUNDTRIP\",\"visible\":\"Filter unit FP-TEST-001 gauge 300 kPa\"}",
+      "error": null,
+      "stdout": "FILTERPROOF_IMAGE_PROBE FETCH 0\nFILTERPROOF_IMAGE_PROBE FETCH 1\nFILTERPROOF_IMAGE_PROBE FETCH_VERIFIED 2\nFILTERPROOF_IMAGE_PROBE EXEC_PROMPT 2\nFILTERPROOF_IMAGE_PROBE MODEL_RETURNED dict\nFILTERPROOF_IMAGE_PROBE OUTPUT_CHARS 86\nFILTERPROOF_IMAGE_PROBE PARSE\nFILTERPROOF_IMAGE_PROBE VISIBLE_CHARS 37\nFILTERPROOF_IMAGE_PROBE COMPLETE\n",
+      "stderr": ""
+    },
+    {
+      "case": "two-json",
+      "started_at": "2026-09-03T08:09:08.479731+00:00",
+      "source_sha256": "9c20d05aa62bc52d0e4280af6789dcd745675eaee0a986f8b209d19ced605ddf",
+      "args": [
+        "json",
+        [
+          "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/before.png",
+          "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/after.png"
+        ],
+        [
+          "3510d18adbabe7a2b1c28318b65f1654bfaf34c7f380012f230488725ec0218c",
+          "f4c015065b50dfe6ebf30b6e18c53067c80dd48811dd59a8c96aedf48cb29173"
+        ]
+      ],
+      "checkpoint_status": "DIAGNOSTIC_VERIFIED_NOT_SERVICE_PROOF",
+      "execution_result": "SUCCESS",
+      "result": "{\"binding\":\"9c75718b89c7fb63e00e904c3bac060f6ecd76dbbd1784b34b62a70c2a2fa2ec\",\"images\":2,\"output_type\":\"dict\",\"status\":\"MODEL_ROUNDTRIP\",\"visible\":\"Triple filter unit FP-TEST-001 DEMO-SITE-01: before 200kPa (SED-5M,CARBON-10,UF-01 used); after 300kPa new cartridges installed\"}",
+      "error": null,
+      "stdout": "FILTERPROOF_IMAGE_PROBE FETCH 0\nFILTERPROOF_IMAGE_PROBE FETCH 1\nFILTERPROOF_IMAGE_PROBE FETCH_VERIFIED 2\nFILTERPROOF_IMAGE_PROBE EXEC_PROMPT 2\nFILTERPROOF_IMAGE_PROBE MODEL_RETURNED dict\nFILTERPROOF_IMAGE_PROBE OUTPUT_CHARS 176\nFILTERPROOF_IMAGE_PROBE PARSE\nFILTERPROOF_IMAGE_PROBE VISIBLE_CHARS 127\nFILTERPROOF_IMAGE_PROBE COMPLETE\n",
+      "stderr": ""
+    }
+  ],
+  "limits": "No service verdict or payout proved. Raw model response on failure is not recorded by this probe."
+}

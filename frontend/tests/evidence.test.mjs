@@ -1,6 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { canonicalHttps, validateManifest } from '../lib/evidence.mjs';
+import { canonicalHttps, validateManifest, validateImageBytes } from '../lib/evidence.mjs';
+test('image bytes match the GenVM sniffer, regardless of file name or MIME', () => {
+  for (const bytes of [[137,80,78,71,13,10,26,10,0], [255,216,255,224,0]])
+    assert.doesNotThrow(() => validateImageBytes(new Uint8Array(bytes)));
+  for (const bytes of [[], [82,73,70,70,0,0,0,0,87,69,66,80], [255,216,255,225], [137,80,78,71]])
+    assert.throws(() => validateImageBytes(new Uint8Array(bytes)));
+  assert.throws(() => validateImageBytes(new Uint8Array(4_000_001)));
+});
 const fixture = {
   schema: 'filterproof-service-v1',
   job_id: '0',

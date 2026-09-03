@@ -1,0 +1,101 @@
+{
+  "contract": "0xf99765498d9F2DF004Ce5B117B78fB5EBb68CD29",
+  "source_sha256": "326e46f225bc2e88e0cefb581a8b5cbf450f3322017993098794bdcf5d3ff2a9",
+  "started_at": "2026-09-03T08:52:37.981554+00:00",
+  "signed_transactions": 0,
+  "attached_value": 0,
+  "before": {
+    "counts": "1|1",
+    "job": "PAID|0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB|0xA63DE24e30C88FB1019E8956654730316e36eDBE|Synthetic commercial filter replacement|DEMO-SITE-01|FP-TEST-001|SED-5M, CARBON-10, UF-01|2026-09-03T10:36:47Z|1",
+    "attempt": "ASSESSED|0|1|SERVICE_CONFIRMED|ALL_CHECKS_CONFIRMED|35aad96156bd14fa6e3797ee88a8e71461d208caa8472c633027b5db4b9cd992|{\"asset_identity\":\"MATCH\",\"before_after_continuity\":\"CONSISTENT\",\"binding_status\":\"MATCH\",\"filter_replacement\":\"COMPLETE\",\"pressure_evidence\":\"PLAUSIBLE\",\"tamper_signal\":\"NONE\"}|https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/manifest.json",
+    "accounting": "100000000000000000|0|100000000000000000|0|0"
+  },
+  "cases": [
+    {
+      "case": "assessment-replay",
+      "sender": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "assess_proof",
+      "args": [
+        0
+      ],
+      "expected": "PROOF_NOT_READY",
+      "execution_result": "SUCCESS",
+      "result": "PROOF_NOT_READY",
+      "error": null,
+      "genvm_result": {
+        "stdout": "",
+        "stderr": "",
+        "error_code": null,
+        "raw_error": null,
+        "error_description": null
+      }
+    },
+    {
+      "case": "duplicate-release",
+      "sender": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "execute_release",
+      "args": [
+        0
+      ],
+      "expected": "RELEASE_NOT_AUTHORIZED",
+      "execution_result": "SUCCESS",
+      "result": "RELEASE_NOT_AUTHORIZED",
+      "error": null,
+      "genvm_result": {
+        "stdout": "",
+        "stderr": "",
+        "error_code": null,
+        "raw_error": null,
+        "error_description": null
+      }
+    },
+    {
+      "case": "refund-after-payment",
+      "sender": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "execute_refund",
+      "args": [
+        0
+      ],
+      "expected": "REFUND_NOT_AUTHORIZED",
+      "execution_result": "SUCCESS",
+      "result": "REFUND_NOT_AUTHORIZED",
+      "error": null,
+      "genvm_result": {
+        "stdout": "",
+        "stderr": "",
+        "error_code": null,
+        "raw_error": null,
+        "error_description": null
+      }
+    },
+    {
+      "case": "late-proof",
+      "sender": "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+      "method": "submit_proof",
+      "args": [
+        0,
+        "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/manifest.json",
+        "35aad96156bd14fa6e3797ee88a8e71461d208caa8472c633027b5db4b9cd992"
+      ],
+      "expected": "PROOF_NOT_ALLOWED",
+      "execution_result": "SUCCESS",
+      "result": "PROOF_NOT_ALLOWED",
+      "error": null,
+      "genvm_result": {
+        "stdout": "",
+        "stderr": "",
+        "error_code": null,
+        "raw_error": null,
+        "error_description": null
+      }
+    }
+  ],
+  "status": "POSTTERMINAL_CHECKS_PASSED_NOT_CONSENSUS_PROOF",
+  "after": {
+    "counts": "1|1",
+    "job": "PAID|0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB|0xA63DE24e30C88FB1019E8956654730316e36eDBE|Synthetic commercial filter replacement|DEMO-SITE-01|FP-TEST-001|SED-5M, CARBON-10, UF-01|2026-09-03T10:36:47Z|1",
+    "attempt": "ASSESSED|0|1|SERVICE_CONFIRMED|ALL_CHECKS_CONFIRMED|35aad96156bd14fa6e3797ee88a8e71461d208caa8472c633027b5db4b9cd992|{\"asset_identity\":\"MATCH\",\"before_after_continuity\":\"CONSISTENT\",\"binding_status\":\"MATCH\",\"filter_replacement\":\"COMPLETE\",\"pressure_evidence\":\"PLAUSIBLE\",\"tamper_signal\":\"NONE\"}|https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/manifest.json",
+    "accounting": "100000000000000000|0|100000000000000000|0|0"
+  },
+  "evidence_kind": "unsigned leader snapshot simulations; not transactions or consensus evidence"
+}

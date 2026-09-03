@@ -19,6 +19,12 @@ At/after recovery time, `FUNDED | PROOF_READY | CORRECTION_REQUIRED -> EXPIRED_R
 
 A DRAFT may be cancelled by its operator. There are exactly two append-only proof attempts.
 
+Revision 2026-09-03: a model transport/runtime failure or malformed model output
+aborts assessment without changing `PROOF_READY` or the READY attempt. Retrying
+assessment uses the same immutable proof, not a new correction submission.
+Valid `UNCERTAIN` observations still follow the original correction/refund path.
+The recovery deadline remains available; no automatic infinite retries are used.
+
 ## Proof manifest
 
 The submitted manifest URL must be canonical HTTPS with no credentials, fragment, query string, non-default port, localhost, or IP-literal host. Its expected SHA-256 is exactly 64 lowercase hex characters.
@@ -28,6 +34,16 @@ Fetched JSON must contain exactly:
 `schema`, `job_id`, `site_code`, `asset_serial`, `technician`, `service_date`, `installed_filters`, `pressure_before_kpa`, `pressure_after_kpa`, `before_image_url`, `after_image_url`, `serial_gauge_image_url`, `before_image_sha256`, `after_image_sha256`, `serial_gauge_image_sha256`, `notes`.
 
 Each image has its own SHA-256 commitment. All three hashes must be distinct; fetched bytes must match. Distinct URLs alone do not prove distinct or immutable images.
+
+Runtime compatibility: use original PNG (recommended) or JPEG beginning with
+`FF D8 FF E0`, matching the GenVM sniffer. WebP is not supported by this path.
+Filename extensions and MIME declarations are not sufficient. Frontend and
+fixture tooling check bytes before hashing. Contract detects unsupported
+committed formats before invoking vision and returns insufficient evidence,
+allowing a new correction proof (or refund after the last attempt). It must
+not leave an immutable WebP proof permanently waiting for a technical retry.
+Header checks establish format compatibility only, not a valid image decode
+or genuine maintenance work.
 
 `schema` must equal `filterproof-service-v1`; job, site, serial, technician and installed filters must match sealed inputs. The three image URLs obey the same canonical HTTPS policy and must be distinct. Manifest bytes are limited to 12,000; each image is limited to 4 MB.
 
@@ -41,6 +57,14 @@ Each image has its own SHA-256 commitment. All three hashes must be distinct; fe
 - `tamper_signal`: `NONE | PRESENT | UNCERTAIN`
 
 AI must not return payment, refund, beneficiary, verdict, or prose.
+
+All three hash-verified images must reach vision. Two bounded calls respect the
+documented two-image limit: BEFORE + AFTER overview, then AFTER + SERIAL/GAUGE
+detail. The second call checks identity, continuity with the AFTER overview,
+AFTER pressure and tamper signals (not filter replacement). For each shared
+field, negative dominates uncertain, which dominates positive. Detail cannot
+rescue a negative/uncertain overview. Validators independently run both calls.
+These observations do not authenticate the underlying physical service.
 
 ## Deterministic precedence
 
@@ -57,12 +81,28 @@ Substantive failure always beats uncertainty. Validators independently fetch, ha
 
 ## Economic and persistence invariants
 
+### No-funds evidence preview (2026-09-03)
+
+`preview_proof` accepts a manifest URL/hash and explicit candidate job/site/
+serial/technician/filter inputs. These are caller-supplied hypothetical inputs,
+not authorization to change any existing job. It invokes the **same**
+`_consensus_observation` and `_derive_outcome` as `assess_proof`, including
+independent fetch/hash, both vision calls, closed schemas and merge precedence.
+It requires zero attached value, validates inputs before nondeterminism, and
+does not create jobs/attempts, persist observations, mutate accounting/status,
+or emit transfers. Its JSON scope is `PREVIEW_ONLY_NO_PAYMENT_AUTHORIZATION`.
+Even SERVICE_CONFIRMED in a preview cannot authorize release: the funded job
+must submit and assess its own sealed proof through the unchanged lifecycle.
+Preview replay performs a fresh assessment; operational tooling checkpoints
+requests to avoid accidental repeats. Network fees may apply to signed calls;
+the planned diagnostic path uses unsigned `sim_call` only.
+
 - Funding must equal the positive bounty exactly.
 - `held + paid + refunded == bounty` after funding.
 - Terminal orders hold zero.
 - State/accounting mutate before external transfer.
 - One attempt has one immutable URL/hash and one immutable assessment.
-- A failed fetch/model parse maps to insufficient evidence, never a confirmed service or substantive accusation.
+- A failed fetch maps to insufficient evidence. A model call/parse/schema failure aborts assessment and preserves the same proof for retry. Neither can confirm service or accuse the technician of substantive failure.
 - Validator disagreement commits no state.
 - A terminal or already-assessed call cannot invoke the model again.
 

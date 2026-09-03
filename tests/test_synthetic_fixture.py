@@ -14,7 +14,9 @@ def test_synthetic_fixture_integrity_and_disclosure():
     assert metadata["pinata"]["uploaded"] is True
     assert metadata["pinata"]["exact_byte_hashes_verified"] is True
     assert pinata["complete"] is True
-    assert metadata["live_genlayer_result"] == "NOT_RUN"
+    assert metadata["live_genlayer_result"] == "ATTEMPTED_NOT_CONFIRMED"
+    assert (ROOT / metadata["live_evidence"]).is_file()
+    assert metadata["current_revision_live_result"] == "NOT_RUN"
     assert metadata["disclosure_text"] == ["SYNTHETIC TEST FIXTURE", "NOT A REAL SERVICE"]
     assert len(metadata["files"]) == 3
     digests = set()

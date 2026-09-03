@@ -1,0 +1,462 @@
+{
+  "contract": "0xf99765498d9F2DF004Ce5B117B78fB5EBb68CD29",
+  "source_sha256": "326e46f225bc2e88e0cefb581a8b5cbf450f3322017993098794bdcf5d3ff2a9",
+  "chain_id": 61999,
+  "authorized_bounty": 100000000000000000,
+  "recovery_after": "2026-09-03T10:36:47Z",
+  "initial_balances": {
+    "operator": 98995000000000000000,
+    "technician": 101001000000000000000,
+    "contract": 0
+  },
+  "technician_before_release": 101001000000000000000,
+  "technician_after_release": 101101000000000000000,
+  "final_contract_balance": 0,
+  "happy_path_verified": true,
+  "scope": "One disclosed synthetic-fixture testnet funded happy path; not real maintenance or complete adversarial audit",
+  "steps": [
+    {
+      "phase": "create",
+      "method": "create_job",
+      "args": [
+        "Synthetic commercial filter replacement",
+        "DEMO-SITE-01",
+        "FP-TEST-001",
+        "SED-5M, CARBON-10, UF-01",
+        "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+        100000000000000000,
+        "2026-09-03T10:36:47Z"
+      ],
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "value": 0,
+      "expected": "0",
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-03T08:37:02.727898+00:00",
+      "hash": "0x93be313c7ebb5186bfb1023e727afc32f155383191ab664c309ed173e4ab7d6f",
+      "readback": {
+        "counts": "1|0",
+        "job": "DRAFT|0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB|0xA63DE24e30C88FB1019E8956654730316e36eDBE|Synthetic commercial filter replacement|DEMO-SITE-01|FP-TEST-001|SED-5M, CARBON-10, UF-01|2026-09-03T10:36:47Z|0",
+        "accounting": "100000000000000000|0|0|0|0"
+      },
+      "receipt": {
+        "hash": "0x93be313c7ebb5186bfb1023e727afc32f155383191ab664c309ed173e4ab7d6f",
+        "from_address": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+        "to_address": "0xf99765498d9F2DF004Ce5B117B78fB5EBb68CD29",
+        "type": 2,
+        "value": 0,
+        "status": "FINALIZED",
+        "result_name": "MAJORITY_AGREE",
+        "leader_only": false,
+        "num_of_initial_validators": 5,
+        "triggered_by": null,
+        "triggered_transactions": [],
+        "value_credited": false,
+        "created_at": "2026-09-03T08:37:07.424000+00:00",
+        "votes": {
+          "0x4DcAE2871cAc82dA355C4656ee2b7EF1Af52C40c": "agree",
+          "0x5a148c341a5c76EDFf9A915F8D567551Fc276c37": "agree",
+          "0x77AcceF9eb2B11DA3D2071F2fBC2396AD941f697": "agree",
+          "0x98519402C343C310f9f08331BB85b51790856B55": "agree",
+          "0xaB4203368734587D1d9eaDD59f9f4a211329B19d": "agree"
+        },
+        "executions": [
+          {
+            "mode": "leader",
+            "vote": null,
+            "execution_result": "SUCCESS",
+            "result": "AAE=",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "result": "AAE=",
+            "nondet_disagree": null
+          }
+        ],
+        "validator_executions": [
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "nondet_disagree": null
+          }
+        ]
+      }
+    },
+    {
+      "phase": "fund",
+      "method": "fund_job",
+      "args": [
+        0
+      ],
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "value": 100000000000000000,
+      "expected": "FUNDED",
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-03T08:41:02.812670+00:00",
+      "hash": "0x7b11c7415357a49bbd732050f976e45facaed9a410d56aa525e78c16c92cae6d",
+      "readback": {
+        "counts": "1|0",
+        "job": "FUNDED|0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB|0xA63DE24e30C88FB1019E8956654730316e36eDBE|Synthetic commercial filter replacement|DEMO-SITE-01|FP-TEST-001|SED-5M, CARBON-10, UF-01|2026-09-03T10:36:47Z|0",
+        "accounting": "100000000000000000|100000000000000000|0|0|100000000000000000"
+      },
+      "receipt": {
+        "hash": "0x7b11c7415357a49bbd732050f976e45facaed9a410d56aa525e78c16c92cae6d",
+        "from_address": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+        "to_address": "0xf99765498d9F2DF004Ce5B117B78fB5EBb68CD29",
+        "type": 2,
+        "value": 100000000000000000,
+        "status": "FINALIZED",
+        "result_name": "MAJORITY_AGREE",
+        "leader_only": false,
+        "num_of_initial_validators": 5,
+        "triggered_by": null,
+        "triggered_transactions": [],
+        "value_credited": true,
+        "created_at": "2026-09-03T08:41:06.686401+00:00",
+        "votes": {
+          "0x567865452AfC3BDE935532f851D8952eDb6c8a8D": "agree",
+          "0x5a148c341a5c76EDFf9A915F8D567551Fc276c37": "idle",
+          "0x77AcceF9eb2B11DA3D2071F2fBC2396AD941f697": "agree",
+          "0xA243FDBe37a36402c0F38Ee9E5D0E4a3b60a17D7": "idle",
+          "0xA628666C76158eEB0a2404A685a332dF49082CDA": "agree"
+        },
+        "executions": [
+          {
+            "mode": "leader",
+            "vote": null,
+            "execution_result": "SUCCESS",
+            "result": "ADRGVU5ERUQ=",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "idle",
+            "execution_result": "ERROR",
+            "result": "AmlkbGU=",
+            "nondet_disagree": null
+          }
+        ],
+        "validator_executions": [
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "idle",
+            "execution_result": "ERROR",
+            "nondet_disagree": null
+          }
+        ]
+      }
+    },
+    {
+      "phase": "submit",
+      "method": "submit_proof",
+      "args": [
+        0,
+        "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/manifest.json",
+        "35aad96156bd14fa6e3797ee88a8e71461d208caa8472c633027b5db4b9cd992"
+      ],
+      "actor": "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+      "value": 0,
+      "expected": "0",
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-03T08:42:13.908905+00:00",
+      "hash": "0x808f2a87766aab67b108b83a61a924bec8b7790832caa58d802f34eaf49fbda1",
+      "readback": {
+        "counts": "1|1",
+        "job": "PROOF_READY|0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB|0xA63DE24e30C88FB1019E8956654730316e36eDBE|Synthetic commercial filter replacement|DEMO-SITE-01|FP-TEST-001|SED-5M, CARBON-10, UF-01|2026-09-03T10:36:47Z|1",
+        "accounting": "100000000000000000|100000000000000000|0|0|100000000000000000",
+        "attempt": "READY|0|1|UNEVALUATED|PENDING|35aad96156bd14fa6e3797ee88a8e71461d208caa8472c633027b5db4b9cd992||https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/manifest.json"
+      },
+      "receipt": {
+        "hash": "0x808f2a87766aab67b108b83a61a924bec8b7790832caa58d802f34eaf49fbda1",
+        "from_address": "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+        "to_address": "0xf99765498d9F2DF004Ce5B117B78fB5EBb68CD29",
+        "type": 2,
+        "value": 0,
+        "status": "FINALIZED",
+        "result_name": "MAJORITY_AGREE",
+        "leader_only": false,
+        "num_of_initial_validators": 5,
+        "triggered_by": null,
+        "triggered_transactions": [],
+        "value_credited": false,
+        "created_at": "2026-09-03T08:42:17.483533+00:00",
+        "votes": {
+          "0x75F08bf39C258Fe4E9cd2bD3DE34D60221fF67BD": "agree",
+          "0xA42b0b5Bc3166AbF6D75bde91C71E69397C9fF24": "agree",
+          "0xA628666C76158eEB0a2404A685a332dF49082CDA": "agree",
+          "0xaC93f1a42D9448eD28Db13Bef50460094034566B": "agree",
+          "0xc699a9aaE3Af1feF509931aCc94cC8c58dc1f7f7": "agree"
+        },
+        "executions": [
+          {
+            "mode": "leader",
+            "vote": null,
+            "execution_result": "SUCCESS",
+            "result": "AAE=",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "result": "AAE=",
+            "nondet_disagree": null
+          }
+        ],
+        "validator_executions": [
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "nondet_disagree": null
+          }
+        ]
+      }
+    },
+    {
+      "phase": "assess",
+      "method": "assess_proof",
+      "args": [
+        0
+      ],
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "value": 0,
+      "expected": "RELEASE_AUTHORIZED",
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-03T08:43:43.835593+00:00",
+      "hash": "0x551b37170600513a1b5430f42c14f1d383c4a8a95f91b2ff61f460d149a3a732",
+      "readback": {
+        "counts": "1|1",
+        "job": "RELEASE_AUTHORIZED|0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB|0xA63DE24e30C88FB1019E8956654730316e36eDBE|Synthetic commercial filter replacement|DEMO-SITE-01|FP-TEST-001|SED-5M, CARBON-10, UF-01|2026-09-03T10:36:47Z|1",
+        "accounting": "100000000000000000|100000000000000000|0|0|100000000000000000",
+        "attempt": "ASSESSED|0|1|SERVICE_CONFIRMED|ALL_CHECKS_CONFIRMED|35aad96156bd14fa6e3797ee88a8e71461d208caa8472c633027b5db4b9cd992|{\"asset_identity\":\"MATCH\",\"before_after_continuity\":\"CONSISTENT\",\"binding_status\":\"MATCH\",\"filter_replacement\":\"COMPLETE\",\"pressure_evidence\":\"PLAUSIBLE\",\"tamper_signal\":\"NONE\"}|https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/manifest.json"
+      },
+      "receipt": {
+        "hash": "0x551b37170600513a1b5430f42c14f1d383c4a8a95f91b2ff61f460d149a3a732",
+        "from_address": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+        "to_address": "0xf99765498d9F2DF004Ce5B117B78fB5EBb68CD29",
+        "type": 2,
+        "value": 0,
+        "status": "FINALIZED",
+        "result_name": "MAJORITY_AGREE",
+        "leader_only": false,
+        "num_of_initial_validators": 5,
+        "triggered_by": null,
+        "triggered_transactions": [],
+        "value_credited": false,
+        "created_at": "2026-09-03T08:43:47.061181+00:00",
+        "votes": {
+          "0x42242A049b8DC4bcf370843fF62015141934dD31": "agree",
+          "0x567865452AfC3BDE935532f851D8952eDb6c8a8D": "idle",
+          "0x5a148c341a5c76EDFf9A915F8D567551Fc276c37": "idle",
+          "0x77AcceF9eb2B11DA3D2071F2fBC2396AD941f697": "agree",
+          "0x7E0EF7B2B3bBa087df3e1B98B0d0142814D4e30f": "agree"
+        },
+        "executions": [
+          {
+            "mode": "leader",
+            "vote": null,
+            "execution_result": "SUCCESS",
+            "result": "AJQBUkVMRUFTRV9BVVRIT1JJWkVE",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "result": "AJQBUkVMRUFTRV9BVVRIT1JJWkVE",
+            "nondet_disagree": null
+          }
+        ],
+        "validator_executions": [
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "idle",
+            "execution_result": "ERROR",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "idle",
+            "execution_result": "ERROR",
+            "nondet_disagree": null
+          }
+        ]
+      }
+    },
+    {
+      "phase": "release",
+      "method": "execute_release",
+      "args": [
+        0
+      ],
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "value": 0,
+      "expected": "PAID",
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-03T08:47:31.214681+00:00",
+      "hash": "0x83ebce382ad98808764259b883dbd2961e77e0ac81cf128ec88d66215469ef39",
+      "readback": {
+        "counts": "1|1",
+        "job": "PAID|0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB|0xA63DE24e30C88FB1019E8956654730316e36eDBE|Synthetic commercial filter replacement|DEMO-SITE-01|FP-TEST-001|SED-5M, CARBON-10, UF-01|2026-09-03T10:36:47Z|1",
+        "accounting": "100000000000000000|0|100000000000000000|0|0",
+        "attempt": "ASSESSED|0|1|SERVICE_CONFIRMED|ALL_CHECKS_CONFIRMED|35aad96156bd14fa6e3797ee88a8e71461d208caa8472c633027b5db4b9cd992|{\"asset_identity\":\"MATCH\",\"before_after_continuity\":\"CONSISTENT\",\"binding_status\":\"MATCH\",\"filter_replacement\":\"COMPLETE\",\"pressure_evidence\":\"PLAUSIBLE\",\"tamper_signal\":\"NONE\"}|https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/manifest.json"
+      },
+      "receipt": {
+        "hash": "0x83ebce382ad98808764259b883dbd2961e77e0ac81cf128ec88d66215469ef39",
+        "from_address": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+        "to_address": "0xf99765498d9F2DF004Ce5B117B78fB5EBb68CD29",
+        "type": 2,
+        "value": 0,
+        "status": "FINALIZED",
+        "result_name": "MAJORITY_AGREE",
+        "leader_only": false,
+        "num_of_initial_validators": 5,
+        "triggered_by": null,
+        "triggered_transactions": [
+          "0x0190b34ed0e8967295b413cee06a43573de4b0c35296c196ce5b815809f2dcff"
+        ],
+        "value_credited": false,
+        "created_at": "2026-09-03T08:47:36.440785+00:00",
+        "votes": {
+          "0x4DcAE2871cAc82dA355C4656ee2b7EF1Af52C40c": "idle",
+          "0x567865452AfC3BDE935532f851D8952eDb6c8a8D": "agree",
+          "0xDCEff558739d64A8BabaeeC882B3e8808e9BDb0A": "agree",
+          "0xF9ce48dc10ebA96080a5D25dab7DE36CcA26146E": "idle",
+          "0xc699a9aaE3Af1feF509931aCc94cC8c58dc1f7f7": "agree"
+        },
+        "executions": [
+          {
+            "mode": "leader",
+            "vote": null,
+            "execution_result": "SUCCESS",
+            "result": "ACRQQUlE",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "idle",
+            "execution_result": "ERROR",
+            "result": "AmlkbGU=",
+            "nondet_disagree": null
+          }
+        ],
+        "validator_executions": [
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "idle",
+            "execution_result": "ERROR",
+            "nondet_disagree": null
+          },
+          {
+            "mode": "validator",
+            "vote": "agree",
+            "execution_result": "SUCCESS",
+            "nondet_disagree": null
+          }
+        ]
+      }
+    }
+  ],
+  "child_transactions": [
+    {
+      "hash": "0x0190b34ed0e8967295b413cee06a43573de4b0c35296c196ce5b815809f2dcff",
+      "from_address": "0xf99765498d9F2DF004Ce5B117B78fB5EBb68CD29",
+      "to_address": "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+      "type": 0,
+      "value": 100000000000000000,
+      "status": "FINALIZED",
+      "result_name": "NO_MAJORITY",
+      "leader_only": false,
+      "num_of_initial_validators": null,
+      "triggered_by": "0x83ebce382ad98808764259b883dbd2961e77e0ac81cf128ec88d66215469ef39",
+      "triggered_transactions": [],
+      "value_credited": true,
+      "created_at": "2026-09-03T08:48:08.643894+00:00",
+      "votes": null,
+      "executions": [],
+      "validator_executions": []
+    }
+  ]
+}

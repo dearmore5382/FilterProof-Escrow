@@ -1,0 +1,40 @@
+{
+  "checked_at": "2026-09-03T08:21:21.624165+00:00",
+  "scope": "developer HTTP/hash only; not validator fetch or semantic evidence",
+  "fixture": "original disclosed synthetic PNGs; no new upload or image substitution",
+  "all_passed": true,
+  "results": [
+    {
+      "url": "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/manifest.json",
+      "expected_sha256": "35aad96156bd14fa6e3797ee88a8e71461d208caa8472c633027b5db4b9cd992",
+      "status": 200,
+      "bytes": 1022,
+      "sha256": "35aad96156bd14fa6e3797ee88a8e71461d208caa8472c633027b5db4b9cd992",
+      "passed": true
+    },
+    {
+      "url": "https://gateway.pinata.cloud/ipfs/bafybeiast2zxtzhi3huvyryujdt7f345q6o2aahrm5xpz34luxdwx4eqym",
+      "expected_sha256": "3510d18adbabe7a2b1c28318b65f1654bfaf34c7f380012f230488725ec0218c",
+      "status": 200,
+      "bytes": 2309701,
+      "sha256": "3510d18adbabe7a2b1c28318b65f1654bfaf34c7f380012f230488725ec0218c",
+      "passed": true
+    },
+    {
+      "url": "https://gateway.pinata.cloud/ipfs/bafybeiflykspvnvoegoic2c3e5uyxbwawqjkquk3xv56w5g3iciwdkra6e",
+      "expected_sha256": "f4c015065b50dfe6ebf30b6e18c53067c80dd48811dd59a8c96aedf48cb29173",
+      "status": 200,
+      "bytes": 2146125,
+      "sha256": "f4c015065b50dfe6ebf30b6e18c53067c80dd48811dd59a8c96aedf48cb29173",
+      "passed": true
+    },
+    {
+      "url": "https://gateway.pinata.cloud/ipfs/bafybeibcnfcvm2hvz72hsb7kyexh7htlogxqc3ldncivk6ufucfawtav5q",
+      "expected_sha256": "026e18e5bb0ecf19a462f11162a96d87ad1916a592d9072118ece8232ffc5aa0",
+      "status": 200,
+      "bytes": 2014868,
+      "sha256": "026e18e5bb0ecf19a462f11162a96d87ad1916a592d9072118ece8232ffc5aa0",
+      "passed": true
+    }
+  ]
+}

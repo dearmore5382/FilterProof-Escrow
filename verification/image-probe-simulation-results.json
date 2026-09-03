@@ -1,0 +1,92 @@
+{
+  "contract": "0x767a4a1b0549f298c12A74f4CF5ce810d729cA83",
+  "rpc": "https://studio.genlayer.com/api",
+  "evidence_kind": "remote unsigned leader snapshot simulations; NOT transactions or consensus evidence",
+  "signed_transactions": 0,
+  "attached_value": 0,
+  "cases": [
+    {
+      "case": "control",
+      "started_at": "2026-09-03T07:53:32.585144+00:00",
+      "source_sha256": "2587796193458b2aa51d20a1e6a644ce8cf9b18f8af14711940f7a47a73b8dcb",
+      "args": [
+        "control",
+        [],
+        []
+      ],
+      "checkpoint_status": "DIAGNOSTIC_VERIFIED_NOT_SERVICE_PROOF",
+      "execution_result": "SUCCESS",
+      "result": "CONTROL_OK",
+      "error": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "case": "fetch",
+      "started_at": "2026-09-03T07:54:24.430510+00:00",
+      "source_sha256": "2587796193458b2aa51d20a1e6a644ce8cf9b18f8af14711940f7a47a73b8dcb",
+      "args": [
+        "fetch",
+        [
+          "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/before.png",
+          "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/after.png",
+          "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/serial-gauge.png"
+        ],
+        [
+          "3510d18adbabe7a2b1c28318b65f1654bfaf34c7f380012f230488725ec0218c",
+          "f4c015065b50dfe6ebf30b6e18c53067c80dd48811dd59a8c96aedf48cb29173",
+          "026e18e5bb0ecf19a462f11162a96d87ad1916a592d9072118ece8232ffc5aa0"
+        ]
+      ],
+      "checkpoint_status": "DIAGNOSTIC_VERIFIED_NOT_SERVICE_PROOF",
+      "execution_result": "SUCCESS",
+      "result": "{\"binding\":\"e3c078189603aaae137877533f3422a244da683366a70f53661b4415ce6a2bb0\",\"images\":3,\"output_type\":\"none\",\"status\":\"FETCH_VERIFIED\",\"visible\":\"NOT_EVALUATED\"}",
+      "error": null,
+      "stdout": "FILTERPROOF_IMAGE_PROBE FETCH 0\nFILTERPROOF_IMAGE_PROBE FETCH 1\nFILTERPROOF_IMAGE_PROBE FETCH 2\nFILTERPROOF_IMAGE_PROBE FETCH_VERIFIED 3\n",
+      "stderr": ""
+    },
+    {
+      "case": "one-json",
+      "started_at": "2026-09-03T07:55:15.216002+00:00",
+      "source_sha256": "2587796193458b2aa51d20a1e6a644ce8cf9b18f8af14711940f7a47a73b8dcb",
+      "args": [
+        "json",
+        [
+          "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/before.png"
+        ],
+        [
+          "3510d18adbabe7a2b1c28318b65f1654bfaf34c7f380012f230488725ec0218c"
+        ]
+      ],
+      "checkpoint_status": "DIAGNOSTIC_VERIFIED_NOT_SERVICE_PROOF",
+      "execution_result": "SUCCESS",
+      "result": "{\"binding\":\"a2703b30e4df2981894bc93a0dbf5f6fb533229ab0432227c9e7c6517fbc2e0a\",\"images\":1,\"output_type\":\"dict\",\"status\":\"MODEL_ROUNDTRIP\",\"visible\":\"Three-stage water filter assembly on metal frame labeled BEFORE MAINTENANCE; identity plate reads SITE: DEMO-SITE-01 ASSET: FP-TEST-001; three blue-capped clear housings labeled SED-5M (tan sediment cartridge), CARBON-10 (black carbon block), UF-01 (white pleated cartridge); digital pressure gauge reads 200 kPa; banner reads SYNTHETIC TEST FIXTURE NOT A REAL SERVICE\"}",
+      "error": null,
+      "stdout": "FILTERPROOF_IMAGE_PROBE FETCH 0\nFILTERPROOF_IMAGE_PROBE FETCH_VERIFIED 1\nFILTERPROOF_IMAGE_PROBE EXEC_PROMPT 1\nFILTERPROOF_IMAGE_PROBE MODEL_RETURNED dict\nFILTERPROOF_IMAGE_PROBE PARSE\nFILTERPROOF_IMAGE_PROBE COMPLETE\n",
+      "stderr": ""
+    },
+    {
+      "case": "two-json",
+      "started_at": "2026-09-03T07:55:52.324971+00:00",
+      "source_sha256": "2587796193458b2aa51d20a1e6a644ce8cf9b18f8af14711940f7a47a73b8dcb",
+      "args": [
+        "json",
+        [
+          "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/before.png",
+          "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/after.png"
+        ],
+        [
+          "3510d18adbabe7a2b1c28318b65f1654bfaf34c7f380012f230488725ec0218c",
+          "f4c015065b50dfe6ebf30b6e18c53067c80dd48811dd59a8c96aedf48cb29173"
+        ]
+      ],
+      "checkpoint_status": "RECEIPT_SAVED",
+      "execution_result": "ERROR",
+      "result": null,
+      "error": "PROBE_OUTPUT_VISIBLE",
+      "stdout": "FILTERPROOF_IMAGE_PROBE FETCH 0\nFILTERPROOF_IMAGE_PROBE FETCH 1\nFILTERPROOF_IMAGE_PROBE FETCH_VERIFIED 2\nFILTERPROOF_IMAGE_PROBE EXEC_PROMPT 2\nFILTERPROOF_IMAGE_PROBE MODEL_RETURNED dict\nFILTERPROOF_IMAGE_PROBE PARSE\n",
+      "stderr": ""
+    }
+  ],
+  "limits": "No service verdict or payout proved. Raw model response on failure is not recorded by this probe."
+}

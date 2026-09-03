@@ -1,0 +1,49 @@
+{
+  "contract": "0xf99765498d9F2DF004Ce5B117B78fB5EBb68CD29",
+  "source_sha256": "326e46f225bc2e88e0cefb581a8b5cbf450f3322017993098794bdcf5d3ff2a9",
+  "started_at": "2026-09-03T09:54:40.659713+00:00",
+  "signed_transactions": 0,
+  "attached_value": 0,
+  "before": {
+    "counts": "4|3",
+    "last_job": "EXPIRED_REFUNDED|0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB|0xA63DE24e30C88FB1019E8956654730316e36eDBE|Synthetic expiry recovery|DEMO-EXPIRY-01|FP-EXPIRY-001|SED-5M, CARBON-10, UF-01|2026-09-03T09:48:16Z|0",
+    "last_accounting": "10000000000000000|0|0|10000000000000000|0"
+  },
+  "cases": [
+    {
+      "case": "manifest-404",
+      "url": "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/c28700ffda3067384c096da00f72e73be1959ec2/does-not-exist.json",
+      "execution_result": "SUCCESS",
+      "result": "{\"observation\":{\"asset_identity\":\"UNCERTAIN\",\"before_after_continuity\":\"UNCERTAIN\",\"binding_status\":\"UNAVAILABLE\",\"filter_replacement\":\"UNCERTAIN\",\"pressure_evidence\":\"UNCERTAIN\",\"tamper_signal\":\"UNCERTAIN\"},\"outcome\":{\"reason\":\"EVIDENCE_UNAVAILABLE\",\"verdict\":\"INSUFFICIENT_EVIDENCE\"},\"scope\":\"PREVIEW_ONLY_NO_PAYMENT_AUTHORIZATION\"}",
+      "error": null,
+      "genvm_result": {
+        "stdout": "",
+        "stderr": "",
+        "error_code": null,
+        "raw_error": null,
+        "error_description": null
+      }
+    },
+    {
+      "case": "manifest-oversized",
+      "url": "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/c28700ffda3067384c096da00f72e73be1959ec2/contracts/FilterProofEscrow.py",
+      "execution_result": "SUCCESS",
+      "result": "{\"observation\":{\"asset_identity\":\"UNCERTAIN\",\"before_after_continuity\":\"UNCERTAIN\",\"binding_status\":\"UNAVAILABLE\",\"filter_replacement\":\"UNCERTAIN\",\"pressure_evidence\":\"UNCERTAIN\",\"tamper_signal\":\"UNCERTAIN\"},\"outcome\":{\"reason\":\"EVIDENCE_UNAVAILABLE\",\"verdict\":\"INSUFFICIENT_EVIDENCE\"},\"scope\":\"PREVIEW_ONLY_NO_PAYMENT_AUTHORIZATION\"}",
+      "error": null,
+      "genvm_result": {
+        "stdout": "",
+        "stderr": "",
+        "error_code": null,
+        "raw_error": null,
+        "error_description": null
+      }
+    }
+  ],
+  "status": "SOURCE_FAILURE_PREVIEWS_PASSED_NOT_CONSENSUS_PROOF",
+  "after": {
+    "counts": "4|3",
+    "last_job": "EXPIRED_REFUNDED|0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB|0xA63DE24e30C88FB1019E8956654730316e36eDBE|Synthetic expiry recovery|DEMO-EXPIRY-01|FP-EXPIRY-001|SED-5M, CARBON-10, UF-01|2026-09-03T09:48:16Z|0",
+    "last_accounting": "10000000000000000|0|0|10000000000000000|0"
+  },
+  "evidence_kind": "unsigned leader preview simulations; not transactions or consensus evidence"
+}

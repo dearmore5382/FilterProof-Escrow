@@ -38,5 +38,7 @@
     },
     "exact_byte_hashes_verified": true
   },
-  "live_genlayer_result": "NOT_RUN"
+  "live_genlayer_result": "ATTEMPTED_NOT_CONFIRMED",
+  "live_evidence": "../../verification/live-happy-receipts.json",
+  "current_revision_live_result": "NOT_RUN"
 }

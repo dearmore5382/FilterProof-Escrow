@@ -1,0 +1,61 @@
+{
+  "date": "2026-09-03",
+  "rpc": "https://studio.genlayer.com/api",
+  "contract": "0x9D1F3F657530C83500669ddBFa65568F6A185c18",
+  "source_sha256": "5f5f1649e791f1eb30f1c3a39ab34662141642ef727bc8fefcf5cb8654b704c5",
+  "evidence_kind": "remote leader snapshot simulations; not transactions or consensus evidence",
+  "signed_transactions": 0,
+  "attached_value": 0,
+  "redactions": "node_config, contract_state and other non-allowlisted fields omitted",
+  "cases": [
+    {
+      "case": "control",
+      "execution_result": "SUCCESS",
+      "mode": "leader",
+      "result": "CONTROL_OK",
+      "stdout": "",
+      "stderr": "",
+      "rpc_error": null
+    },
+    {
+      "case": "fetch",
+      "execution_result": "SUCCESS",
+      "mode": "leader",
+      "result": "{\"case\":\"fetch\",\"images\":3,\"output_type\":\"none\",\"status\":\"FETCH_VERIFIED\",\"visible\":\"NOT_EVALUATED\"}",
+      "stdout": "FILTERPROOF_PROBE_STAGE fetch FETCH 0\nFILTERPROOF_PROBE_STAGE fetch FETCH 1\nFILTERPROOF_PROBE_STAGE fetch FETCH 2\nFILTERPROOF_PROBE_STAGE fetch FETCH_VERIFIED 3\n",
+      "stderr": "",
+      "rpc_error": null
+    },
+    {
+      "case": "text",
+      "execution_result": "SUCCESS",
+      "mode": "leader",
+      "result": "{\"case\":\"text\",\"images\":0,\"output_type\":\"str\",\"status\":\"MODEL_ROUNDTRIP\",\"visible\":\"NO_IMAGES\"}",
+      "stdout": "FILTERPROOF_PROBE_STAGE text FETCH_VERIFIED 0\nFILTERPROOF_PROBE_STAGE text EXEC_PROMPT 0\nFILTERPROOF_PROBE_STAGE text MODEL_RETURNED str\nFILTERPROOF_PROBE_STAGE text PARSE\nFILTERPROOF_PROBE_STAGE text COMPLETE\n",
+      "stderr": "",
+      "rpc_error": null
+    },
+    {
+      "case": "json",
+      "execution_result": "SUCCESS",
+      "mode": "leader",
+      "result": "{\"case\":\"json\",\"images\":0,\"output_type\":\"dict\",\"status\":\"MODEL_ROUNDTRIP\",\"visible\":\"NO_IMAGES\"}",
+      "stdout": "FILTERPROOF_PROBE_STAGE json FETCH_VERIFIED 0\nFILTERPROOF_PROBE_STAGE json EXEC_PROMPT 0\nFILTERPROOF_PROBE_STAGE json MODEL_RETURNED dict\nFILTERPROOF_PROBE_STAGE json PARSE\nFILTERPROOF_PROBE_STAGE json COMPLETE\n",
+      "stderr": "",
+      "rpc_error": null
+    },
+    {
+      "case": "one-text",
+      "execution_result": "ERROR",
+      "mode": "leader",
+      "result": "exit_code 1",
+      "stdout": "FILTERPROOF_PROBE_STAGE one-text FETCH 0\nFILTERPROOF_PROBE_STAGE one-text FETCH_VERIFIED 1\nFILTERPROOF_PROBE_STAGE one-text EXEC_PROMPT 1\n",
+      "stderr": "Traceback (most recent call last):\n  File \"/py/libs/_genlayer_runner.py\", line 193, in <module>\n    _give_result(lambda: runner(stage_data))\n    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/py/libs/_genlayer_runner.py\", line 65, in _give_result\n    res = res_fn()\n  File \"/py/libs/_genlayer_runner.py\", line 193, in <lambda>\n    _give_result(lambda: runner(stage_data))\n                         ~~~~~~^^^^^^^^^^^^\n  File \"/py/libs/genlayer/gl/vm.py\", line 181, in <lambda>\n    'data_leader': cloudpickle.dumps(lambda _: leader_fn()),\n                                               ~~~~~~~~~^^\n  File \"/contract.py\", line 107, in leader\n    return _probe(case)\n  File \"/contract.py\", line 57, in _probe\n    raw = gl.nondet.exec_prompt(PROMPT, images=images)\n  File \"/py/libs/genlayer/gl/_internal/__init__.py\", line 22, in eager\n    return fn(*args, **kwargs).get()\n           ~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/py/libs/genlayer/py/types.py\", line 118, in get\n    raise self._exc\n  File \"/py/libs/genlayer/py/types.py\", line 114, in get\n    self._res = ev()\n                ~~^^\n  File \"/py/libs/genlayer/gl/_internal/gl_call.py\", line 37, in run\n    return after(rest)\n  File \"/py/libs/genlayer/gl/nondet/__init__.py\", line 28, in _decode_nondet\n    raise NondetException(err)\ngenlayer.gl.nondet.NondetException: {'causes': ['INVALID_IMAGE'], 'ctx': {}}\n",
+      "rpc_error": {
+        "code": -32000,
+        "message": "execution failed"
+      }
+    }
+  ],
+  "additional_observation": "one-json also returned INVALID_IMAGE; its error was observed before the recorder saved RPC error receipts, so no raw snapshot is claimed for that case"
+}

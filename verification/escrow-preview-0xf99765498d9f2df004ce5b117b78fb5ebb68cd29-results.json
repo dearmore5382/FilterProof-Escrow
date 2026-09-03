@@ -1,0 +1,98 @@
+{
+  "contract": "0xf99765498d9F2DF004Ce5B117B78fB5EBb68CD29",
+  "source_sha256": "326e46f225bc2e88e0cefb581a8b5cbf450f3322017993098794bdcf5d3ff2a9",
+  "rpc": "https://studio.genlayer.com/api",
+  "evidence_kind": "remote unsigned leader preview simulations; not finalized transactions or consensus proof",
+  "frozen_preview_matrix_passed": true,
+  "signed_transactions": 0,
+  "attached_value": 0,
+  "funded_lifecycle_verified": false,
+  "multi_validator_consensus_verified": false,
+  "fixture_is_synthetic": true,
+  "cases": [
+    {
+      "case": "cross-job",
+      "started_at": "2026-09-03T08:27:20.358027+00:00",
+      "args": [
+        "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/manifest.json",
+        "35aad96156bd14fa6e3797ee88a8e71461d208caa8472c633027b5db4b9cd992",
+        1,
+        "DEMO-SITE-01",
+        "FP-TEST-001",
+        "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+        "SED-5M, CARBON-10, UF-01"
+      ],
+      "status": "PREVIEW_EXPECTATION_MET_NOT_LIFECYCLE_PROOF",
+      "counts_before": "0|0",
+      "counts_after": "0|0",
+      "execution_result": "SUCCESS",
+      "result": "{\"observation\":{\"asset_identity\":\"UNCERTAIN\",\"before_after_continuity\":\"UNCERTAIN\",\"binding_status\":\"MISMATCH\",\"filter_replacement\":\"UNCERTAIN\",\"pressure_evidence\":\"UNCERTAIN\",\"tamper_signal\":\"UNCERTAIN\"},\"outcome\":{\"reason\":\"MANIFEST_BINDING_MISMATCH\",\"verdict\":\"MATERIAL_FAILURE\"},\"scope\":\"PREVIEW_ONLY_NO_PAYMENT_AUTHORIZATION\"}",
+      "error": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "case": "invalid-url",
+      "started_at": "2026-09-03T08:27:56.652307+00:00",
+      "args": [
+        "http://localhost/not-allowed",
+        "35aad96156bd14fa6e3797ee88a8e71461d208caa8472c633027b5db4b9cd992",
+        0,
+        "DEMO-SITE-01",
+        "FP-TEST-001",
+        "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+        "SED-5M, CARBON-10, UF-01"
+      ],
+      "status": "PREVIEW_EXPECTATION_MET_NOT_LIFECYCLE_PROOF",
+      "counts_before": "0|0",
+      "counts_after": "0|0",
+      "execution_result": "ERROR",
+      "result": null,
+      "error": "INVALID_MANIFEST_URL",
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "case": "positive",
+      "started_at": "2026-09-03T08:25:53.105945+00:00",
+      "args": [
+        "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/manifest.json",
+        "35aad96156bd14fa6e3797ee88a8e71461d208caa8472c633027b5db4b9cd992",
+        0,
+        "DEMO-SITE-01",
+        "FP-TEST-001",
+        "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+        "SED-5M, CARBON-10, UF-01"
+      ],
+      "status": "PREVIEW_EXPECTATION_MET_NOT_LIFECYCLE_PROOF",
+      "counts_before": "0|0",
+      "counts_after": "0|0",
+      "execution_result": "SUCCESS",
+      "result": "{\"observation\":{\"asset_identity\":\"MATCH\",\"before_after_continuity\":\"CONSISTENT\",\"binding_status\":\"MATCH\",\"filter_replacement\":\"COMPLETE\",\"pressure_evidence\":\"PLAUSIBLE\",\"tamper_signal\":\"NONE\"},\"outcome\":{\"reason\":\"ALL_CHECKS_CONFIRMED\",\"verdict\":\"SERVICE_CONFIRMED\"},\"scope\":\"PREVIEW_ONLY_NO_PAYMENT_AUTHORIZATION\"}",
+      "error": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "case": "wrong-manifest-hash",
+      "started_at": "2026-09-03T08:26:47.457254+00:00",
+      "args": [
+        "https://raw.githubusercontent.com/dearmore5382/FilterProof-Escrow/56ca76cb35b4835f2d64b30cdce49aecc80c2942/fixtures/synthetic-happy/manifest.json",
+        "0000000000000000000000000000000000000000000000000000000000000000",
+        0,
+        "DEMO-SITE-01",
+        "FP-TEST-001",
+        "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+        "SED-5M, CARBON-10, UF-01"
+      ],
+      "status": "PREVIEW_EXPECTATION_MET_NOT_LIFECYCLE_PROOF",
+      "counts_before": "0|0",
+      "counts_after": "0|0",
+      "execution_result": "SUCCESS",
+      "result": "{\"observation\":{\"asset_identity\":\"UNCERTAIN\",\"before_after_continuity\":\"UNCERTAIN\",\"binding_status\":\"MISMATCH\",\"filter_replacement\":\"UNCERTAIN\",\"pressure_evidence\":\"UNCERTAIN\",\"tamper_signal\":\"UNCERTAIN\"},\"outcome\":{\"reason\":\"MANIFEST_BINDING_MISMATCH\",\"verdict\":\"MATERIAL_FAILURE\"},\"scope\":\"PREVIEW_ONLY_NO_PAYMENT_AUTHORIZATION\"}",
+      "error": null,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

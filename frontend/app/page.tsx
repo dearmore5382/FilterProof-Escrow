@@ -12,7 +12,8 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { Workbench } from '@/components/workbench';
-import { canonicalHttps, validateManifest } from '@/lib/evidence.mjs';
+import { canonicalHttps, validateManifest, validateImageBytes } from '@/lib/evidence.mjs';
+import deployment from '@/lib/deployment.json';
 
 const images = [
   ['before', '01', 'Before maintenance'],
@@ -133,7 +134,9 @@ export default function Home() {
           throw new Error(
             'Each image must be non-empty and no larger than 4 MB.',
           );
-        const hash = await sha(await file.arrayBuffer());
+        const bytes = await file.arrayBuffer();
+        validateImageBytes(bytes);
+        const hash = await sha(bytes);
         proof[key + '_image_url'] = url;
         proof[key + '_image_sha256'] = hash;
         hashes.push(hash);
@@ -187,7 +190,7 @@ export default function Home() {
           </div>
         </div>
         <span className="network">
-          <i /> Pre-deployment
+          <i /> Studionet · Audit in progress
         </span>
       </header>
       <main className="shell">
@@ -203,10 +206,10 @@ export default function Home() {
         <div className="gate">
           <LockKeyhole size={20} />
           <div>
-            <strong>Contract not connected</strong>
+            <strong>Verified testnet contract — read-only release</strong>
             <p>
-              Manual deployment follows verification. Only evidence preparation
-              is available now; no on-chain transactions or balances are shown.
+              {deployment.contractAddress} · Source {deployment.sourceSha256.slice(0, 12)}…
+              {' '}Evidence preparation is available; transaction signing remains disabled until the full live audit passes.
             </p>
           </div>
         </div>
@@ -314,7 +317,7 @@ export default function Home() {
                           <input
                             name={key + '_file'}
                             type="file"
-                            accept="image/png,image/jpeg,image/webp"
+                            accept="image/png,image/jpeg"
                             required
                           />
                         </label>

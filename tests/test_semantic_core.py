@@ -11,7 +11,7 @@ SOURCE = SOURCE_PATH.read_text(encoding="utf-8")
 
 
 def load_core():
-    names = {"_uncertain", "_normalize_observation", "_derive_outcome", "_canonical_https", "_valid_sha256", "_manifest_binding"}
+    names = {"_uncertain", "_normalize_observation", "_derive_outcome", "_canonical_https", "_valid_sha256", "_manifest_binding", "_merge_views"}
     tree = ast.parse(SOURCE)
     nodes = [node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name in names]
     ns = {"typing": typing, "u256": int, "gl": SimpleNamespace(vm=SimpleNamespace(UserError=ValueError))}
@@ -33,6 +33,23 @@ def obs(binding="MATCH", identity="MATCH", replacement="COMPLETE", continuity="C
         "pressure_evidence": pressure,
         "tamper_signal": tamper,
     })
+
+
+@pytest.mark.parametrize("field,positive,negative", [
+    ("asset_identity", "MATCH", "MISMATCH"),
+    ("before_after_continuity", "CONSISTENT", "INCONSISTENT"),
+    ("pressure_evidence", "PLAUSIBLE", "IMPLAUSIBLE"),
+    ("tamper_signal", "NONE", "PRESENT"),
+])
+def test_pair_merge_cannot_rescue_negative_or_uncertain(field, positive, negative):
+    for first, second in itertools.product((positive, negative, "UNCERTAIN"), repeat=2):
+        overview, detail = obs(), obs()
+        overview[field], detail[field] = first, second
+        merged = CORE["_merge_views"](overview, detail)
+        expected = negative if negative in (first, second) else "UNCERTAIN" if "UNCERTAIN" in (first, second) else positive
+        assert merged[field] == expected
+        assert merged["binding_status"] == "MATCH"
+        assert merged["filter_replacement"] == overview["filter_replacement"]
 
 
 def test_locked_precedence_and_combinations():

@@ -4,13 +4,21 @@ A focused GenLayer DApp for hash-bound evidence of commercial water-filter cartr
 
 ## Current status
 
-**Pre-deployment engineering build. Not a production-ready water-safety or payment service.**
+**Deployed preview and one funded synthetic happy path passed. Full adversarial audit has NOT passed. Not a production-ready water-safety or payment service.**
 
 - Contract and local test suite implemented.
+- The escrow at `0xf99765498d9F2DF004Ce5B117B78fB5EBb68CD29` passed all four frozen unsigned preview cases using its actual classifier; the current local suite has 201 passing tests. See `verification/ESCROW_PREVIEW_RESULTS.md`. No funds were sent by the preview sequence.
+- The same escrow completed one explicitly authorized 0.1 GEN testnet lifecycle: five finalized majority-agree writes, SERVICE_CONFIRMED, PAID, exact child transfer and zero ending contract balance. See `verification/FUNDED_HAPPY_PATH.md`. The fixture is synthetic and the remaining adversarial matrix is open.
+- Four unsigned zero-value post-terminal simulations rejected assessment replay, duplicate release, refund after payment and late proof as expected, with identical before/after state. This is leader-snapshot evidence, not consensus evidence.
+- A separate zero-value draft smoke test finalized create/cancel with majority agreement and ran eight unsigned failure simulations for authority, exact funding and premature actions. State and public balances remained unchanged. See `verification/FAILURE_SMOKE_RESULTS.md`; F1–F3 remain only partially closed because the negative calls were simulations.
+- A 0.01 GEN binding-failure lifecycle finalized all seven parent writes with majority agreement: two append-only mismatched-digest attempts led to REFUND_AUTHORIZED, then exactly one child transfer returned the full escrow to the operator. See `verification/REFUND_PATH_RESULTS.md`; this closes live-matrix F6 for the declared scenario.
+- A separate 0.01 GEN expiry lifecycle rejected early recovery in simulation, then accepted a permissionless recovery from the technician wallet after deadline. The finalized child transfer returned the full escrow and left contract balance zero. See `verification/EXPIRY_RECOVERY_RESULTS.md`; this closes F7 for a funded job with no proof.
+- Unsigned source-failure previews for a pinned 404 and a pinned oversized response both failed closed as `INSUFFICIENT_EVIDENCE / EVIDENCE_UNAVAILABLE` with unchanged state. See `verification/SOURCE_FAILURE_PREVIEW_RESULTS.md`; F4 remains partial.
 - English-only frontend with supplied logo, local proof preparation, guarded wallet workflows and persistent transaction reconciliation.
-- Contract address intentionally empty. Live writes disabled until deployment, source parity and live audit are verified.
+- The hosted frontend identifies the source-verified Studionet contract but keeps all live writes disabled while `liveAuditVerified` remains false.
 - Public-source negative/ambiguous fixtures found and HTTP/hash checked. A repository-owned synthetic positive triplet is included and explicitly labeled; it is not a real-world service record.
-- No deployment or on-chain test was performed for this project.
+- Two earlier deployments were tested and refunded after non-confirming assessments; see `verification/AUDIT.md` and the original receipt files. Neither is a release candidate.
+- The current revision checks all three images in two calls and preserves proof on model runtime/schema errors. Actual escrow positive preview returned SERVICE_CONFIRMED and the funded happy lifecycle finalized with majority agreement. The remaining live adversarial matrix is open.
 
 ## Run locally
 

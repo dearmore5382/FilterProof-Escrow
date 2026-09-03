@@ -17,16 +17,32 @@ def test_public_surface_and_types():
                 assert decorators <= {"gl.public.write", "gl.public.write.payable", "gl.public.view"}
                 assert node.returns is not None
                 assert all(arg.annotation is not None for arg in node.args.args[1:])
-    assert methods == ["create_job", "fund_job", "cancel_draft", "submit_proof", "assess_proof", "execute_release", "execute_refund", "recover_expired", "get_job", "get_attempt", "get_accounting", "get_counts"]
+    assert methods == ["preview_proof", "create_job", "fund_job", "cancel_draft", "submit_proof", "assess_proof", "execute_release", "execute_refund", "recover_expired", "get_job", "get_attempt", "get_accounting", "get_counts"]
+
+
+def test_preview_uses_real_core_without_storage_writes_or_transfers():
+    preview = next(n for n in ast.walk(TREE) if isinstance(n, ast.FunctionDef) and n.name == "preview_proof")
+    assert [ast.unparse(d) for d in preview.decorator_list] == ["gl.public.write"]
+    code = ast.unparse(preview)
+    assert "self._consensus_observation(" in code and "_derive_outcome(observation)" in code
+    assert "PREVIEW_ONLY_NO_PAYMENT_AUTHORIZATION" in code
+    assert "emit_transfer" not in code
+    for node in ast.walk(preview):
+        if isinstance(node, (ast.Assign, ast.AnnAssign, ast.AugAssign)):
+            targets = node.targets if isinstance(node, ast.Assign) else [node.target]
+            assert all(isinstance(target, ast.Name) for target in targets)
 
 
 def test_real_custody_and_multimodal_consensus_are_present():
     assert "@gl.public.write.payable" in SOURCE
     assert "gl.message.value" in SOURCE
     assert "emit_transfer(value=amount)" in SOURCE
-    assert "MAX_VISION_IMAGES = 2" in SOURCE
-    assert "images=images[:MAX_VISION_IMAGES]" in SOURCE
-    assert "response_format=" not in SOURCE
+    vision_calls = [node for node in ast.walk(TREE) if isinstance(node, ast.Call)
+                    and isinstance(node.func, ast.Name) and node.func.id == "_vision_result"]
+    assert len(vision_calls) == 2
+    assert [ast.literal_eval(node.args[1].elts[0].slice) for node in vision_calls] == [0, 1]
+    assert [ast.literal_eval(node.args[1].elts[1].slice) for node in vision_calls] == [1, 2]
+    assert all(len(node.args[1].elts) == 2 for node in vision_calls)
     assert "hashlib.sha256(body).hexdigest()" in SOURCE
     assert "run_nondet_unsafe" in SOURCE
     assert "_derive_outcome(theirs) == _derive_outcome(mine)" in SOURCE
@@ -34,7 +50,7 @@ def test_real_custody_and_multimodal_consensus_are_present():
 
 def test_prompt_cannot_choose_money_flow():
     start = SOURCE.index('prompt = (')
-    end = SOURCE.index('        raw = gl.nondet.exec_prompt', start)
+    end = SOURCE.index('        overview = _vision_result', start)
     prompt = SOURCE[start:end]
     assert "Do not return verdict, payment, refund, beneficiary" in prompt
     assert "RELEASE_AUTHORIZED" not in prompt
