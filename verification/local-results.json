@@ -20,6 +20,7 @@
   "frontend_typecheck":"passed",
   "frontend_lint":"passed; application source and tests only, excluding unmodified scaffold UI catalog",
   "frontend_build":"passed",
+  "frontend_cloudflare":{"url":"https://filterproof-escrow.dearmorescheuer5382.workers.dev","http_status":200,"mode":"public read-only audit-in-progress release; transaction signing disabled"},
   "build_warnings":["SDK bundle exceeds 500 kB","upstream module.register deprecation","Vite native config JSON import warning","Vinext route classification unknown"],
   "known_dependency_advisories_at_last_install":0,
   "browser_wallet_e2e":"not_run",
