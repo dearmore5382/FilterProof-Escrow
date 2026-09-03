@@ -14,7 +14,6 @@ from genlayer_py.chains import studionet
 
 
 ROOT = Path(__file__).resolve().parent
-LOG = ROOT / "live-happy-receipts.json"
 GEN = 10**18
 BOUNTY = GEN // 10
 TITLE = "Synthetic commercial filter replacement"
@@ -62,6 +61,7 @@ def main():
     args = parser.parse_args()
     if args.phase == "settle" and (not args.manifest_url or not args.manifest_sha256):
         parser.error("settle requires --manifest-url and --manifest-sha256")
+    log = ROOT / f"live-happy-{args.contract.lower()}.json"
 
     operator_key = getpass.getpass("")
     technician_key = getpass.getpass("")
@@ -69,11 +69,11 @@ def main():
     technician = create_account(account_private_key="0x" + technician_key.removeprefix("0x"))
     operator_client = create_client(chain=studionet, account=operator)
     technician_client = create_client(chain=studionet, account=technician)
-    records = json.loads(LOG.read_text(encoding="utf-8")) if LOG.exists() else []
+    records = json.loads(log.read_text(encoding="utf-8")) if log.exists() else []
 
     def save(row):
         records.append(row)
-        LOG.write_text(json.dumps(records, indent=2, default=str) + "\n", encoding="utf-8")
+        log.write_text(json.dumps(records, indent=2, default=str) + "\n", encoding="utf-8")
 
     def view(method, call_args=None):
         value = operator_client.read_contract(

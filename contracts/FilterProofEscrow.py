@@ -213,7 +213,7 @@ def _inspect_evidence(manifest_url: str, expected_hash: str, job_id: u256, site:
             + "\nPRESSURE AFTER KPA: " + str(data["pressure_after_kpa"])
             + "\nUNTRUSTED NOTES: " + str(data["notes"])
         )
-        raw = gl.nondet.exec_prompt(prompt, images=images[:MAX_VISION_IMAGES], response_format="json")
+        raw = gl.nondet.exec_prompt(prompt, images=images[:MAX_VISION_IMAGES])
         raw_text = json.dumps(raw) if isinstance(raw, dict) else str(raw).strip()
         if len(raw_text) > MAX_MODEL_OUTPUT:
             return _uncertain("MATCH")

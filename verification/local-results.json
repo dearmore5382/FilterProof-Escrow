@@ -1,6 +1,6 @@
 {
   "date": "2026-09-03",
-  "contract_source_sha256": "d9c9843009c1ee9810302957bcaf9650c305e0ccf7dbf3f5283c7abaffad5bc6",
+  "contract_source_sha256": "14c10df96a0f36ba5bb9cf6d111d01a75f064bdd51ce8c29e1711c0433254c6b",
   "python_tests": {"passed":37,"failed":0,"mode":"Direct Mode with mocked web/model plus pure/static/fixture-integrity tests","observation_combinations_in_exhaustive_test":729},
   "sdk_archive":"v0.3.0-rc7",
   "exact_sdk_dependency":"11rhn002yfajawsz7fai6mykznbxkxs6l91iskj5cm82c92qhy3v",
@@ -15,13 +15,20 @@
   "known_dependency_advisories_at_last_install":0,
   "browser_wallet_e2e":"not_run",
   "webmcp_runtime_validation":"not_run",
-  "live_model_evaluation":"first deployment failed closed because three images exceeded the active validator limit; corrected source awaits redeployment",
+  "live_model_evaluation":"two superseded deployments failed closed before model execution; final candidate limits images and avoids legacy structured-output protocol mismatch",
   "onchain_transactions":[
     "0x49da067341915a9addbd541902f859d050f944447cb5dd5734d556b1fc79ad35",
     "0xdc30257c36b96440448e56f394de575716394f8eaee1370a723bd3179ce7dba2",
     "0x303e7f1390015c702e08ad9493d462c82124476371f517b8d45bda35aee08995",
-    "0x49bdcdd35e7f6a154ccaed5d03235509353bc060b3728e13b33b8e72cf4e1f48"
+    "0x49bdcdd35e7f6a154ccaed5d03235509353bc060b3728e13b33b8e72cf4e1f48",
+    "0xd1900e60b97e0b897727bd8db42ae3dc57092cd4ebf30c9d6fb4216d20e5dee6",
+    "0xc2973bf728b6e0b3a356aa1bd08bda96d25436ed27d2d4b9e8c48478c291be84",
+    "0x31438d620955510018479b2a4ffc8078dcaa6d3639d5dd021edbed53c24e52bd",
+    "0x21e8f61a3a0dc4215100a3d54f84d19f7dbe3bea22ec94bb12e3c9e54a6f6332"
   ],
   "deployment_ready":true,
-  "superseded_contract":"0x404c3A6d50B04B93b8e4F8a9f7c394CE21adeeBA"
+  "superseded_contracts":[
+    "0x404c3A6d50B04B93b8e4F8a9f7c394CE21adeeBA",
+    "0x3512b8E2343A59c1AC5314F6d52c4fd0F26079c2"
+  ]
 }

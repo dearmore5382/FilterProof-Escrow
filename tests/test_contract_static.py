@@ -26,6 +26,7 @@ def test_real_custody_and_multimodal_consensus_are_present():
     assert "emit_transfer(value=amount)" in SOURCE
     assert "MAX_VISION_IMAGES = 2" in SOURCE
     assert "images=images[:MAX_VISION_IMAGES]" in SOURCE
+    assert "response_format=" not in SOURCE
     assert "hashlib.sha256(body).hexdigest()" in SOURCE
     assert "run_nondet_unsafe" in SOURCE
     assert "_derive_outcome(theirs) == _derive_outcome(mine)" in SOURCE

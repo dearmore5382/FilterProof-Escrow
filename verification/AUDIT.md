@@ -26,6 +26,7 @@ This is an engineering self-review, not an independent security certification.
 | Separate tabs could independently submit | Web Locks plus persistent intent and fresh journal read before signing | implementation reviewed; browser E2E still open |
 | Source images could be merged into a false service claim | Public gallery fixture explicitly classified as insufficient identity | public source registry; no happy-path claim |
 | Vision call sent three images although the active validator interface supports at most two | Continue fetching and hash-verifying all three; send only the complete BEFORE and AFTER overviews to vision | two finalized attempts returned `binding_status=MATCH` but visual fallback; assessment transactions recorded below |
+| Legacy SDK sends structured-output mode as protocol `json`; the active runtime expects the newer `json2` transform, and the call ended before `EXEC_PROMPT` | Keep the validated legacy runner but request text output; parse and enforce the same exact closed JSON schema in contract code | second deployment receipt had no `EXEC_PROMPT` host call; latest SDK source maps public `response_format="json"` to internal `json2` |
 
 ## Honest limits / remaining gates
 
@@ -52,3 +53,11 @@ If a submitted transaction remains nonterminal, continue checking the same hash;
 - Refund `0x303e7f1390015c702e08ad9493d462c82124476371f517b8d45bda35aee08995` finalized with majority agreement; emitted child transfer `0x49bdcdd35e7f6a154ccaed5d03235509353bc060b3728e13b33b8e72cf4e1f48`.
 - Final accounting: bounty `100000000000000000`, held `0`, paid `0`, refunded `100000000000000000`, contract balance `0`.
 - This is a successful fail-closed/custody test, not a successful happy path.
+
+## Second deployment outcome
+
+- Deployment `0x3512b8E2343A59c1AC5314F6d52c4fd0F26079c2` used only two vision images, but its first assessment `0xd1900e60b97e0b897727bd8db42ae3dc57092cd4ebf30c9d6fb4216d20e5dee6` still returned the safe visual fallback before any `EXEC_PROMPT` host call.
+- The second attempt deliberately supplied a wrong manifest digest to test binding failure. Assessment `0xc2973bf728b6e0b3a356aa1bd08bda96d25436ed27d2d4b9e8c48478c291be84` returned `MANIFEST_BINDING_MISMATCH` and authorized refund.
+- Refund `0x31438d620955510018479b2a4ffc8078dcaa6d3639d5dd021edbed53c24e52bd` finalized with majority agreement; emitted child transfer `0x21e8f61a3a0dc4215100a3d54f84d19f7dbe3bea22ec94bb12e3c9e54a6f6332`.
+- Operator balance increased by exactly `100000000000000000`; final contract accounting and balance are zero-held/zero-paid/full-refunded/zero-balance.
+- This deployment is superseded and must not be configured in the frontend.

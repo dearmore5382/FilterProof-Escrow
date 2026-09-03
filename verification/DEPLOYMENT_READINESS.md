@@ -1,6 +1,6 @@
 # Deployment readiness — READY FOR USER REDEPLOYMENT
 
-The user performs deployment. The first deployment was safely tested and refunded, but its three-image vision call is incompatible with the active validator limit. A corrected source must be deployed at a new address.
+The user performs deployment. Two superseded deployments were safely tested and fully refunded. The final candidate limits vision to two images and avoids the legacy structured-output protocol mismatch while retaining strict in-contract JSON parsing.
 
 ## Passed locally
 
@@ -16,7 +16,8 @@ The user performs deployment. The first deployment was safely tested and refunde
 1. A coherent synthetic positive candidate exists under `fixtures/synthetic-happy`; it is visibly labeled and is not a real maintenance record.
 2. All three exact PNG bytes are pinned with CIDv1. The compact WebP correction set is commit-pinned on GitHub. Public downloads returned HTTP 200 and matched local byte counts and SHA-256 hashes.
 3. The two-image validator limit found by the first live audit is fixed. All three files remain independently fetched and hash-verified; only BEFORE and AFTER are passed to the vision model.
-4. Contract source hash was recomputed after all local gates.
+4. The legacy runner's incompatible structured-output flag was removed. Model text is still parsed and checked against the exact closed observation schema before it can affect state.
+5. Contract source hash was recomputed after all local gates.
 
 ## Post-deployment gates
 
@@ -25,6 +26,6 @@ The user performs deployment. The first deployment was safely tested and refunde
 3. Run browser-wallet end-to-end tests, including multi-tab/refresh/error recovery. Unit tests do not replace these.
 4. Exercise the optional WebMCP readback tool in a supported WebMCP browser context if that optional feature is claimed.
 
-The corrected source passed the full local gate and is ready for user redeployment. The old address must not be configured in the frontend. This is not an audit-complete or production-ready claim.
+The corrected source passed the full local gate and is ready for user redeployment. Neither superseded address may be configured in the frontend. This is not an audit-complete or production-ready claim.
 
-Candidate source SHA-256: `d9c9843009c1ee9810302957bcaf9650c305e0ccf7dbf3f5283c7abaffad5bc6`.
+Candidate source SHA-256: `14c10df96a0f36ba5bb9cf6d111d01a75f064bdd51ce8c29e1711c0433254c6b`.
