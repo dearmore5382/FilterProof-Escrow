@@ -1,0 +1,11 @@
+{
+  "uploaded_at": "2026-09-03T05:17:36.109Z",
+  "cid": "bafkreibvvlmwcvv5ct5g4n4x52ekrzyumhjarsvii4wggmbhwxnuxhgzsi",
+  "pin_size_bytes": 1022,
+  "content_bytes": 1022,
+  "sha256": "35aad96156bd14fa6e3797ee88a8e71461d208caa8472c633027b5db4b9cd992",
+  "duplicate": false,
+  "gateway_url": "https://gateway.pinata.cloud/ipfs/bafkreibvvlmwcvv5ct5g4n4x52ekrzyumhjarsvii4wggmbhwxnuxhgzsi",
+  "gateway_verified": true,
+  "gateway_verified_at": "2026-09-03T05:18:00Z"
+}

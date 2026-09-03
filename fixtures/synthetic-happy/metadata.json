@@ -1,0 +1,42 @@
+{
+  "fixture_id": "filterproof-synthetic-happy-v1",
+  "created_at": "2026-09-03",
+  "generator": "OpenAI built-in ImageGen",
+  "classification": "synthetic-software-test-fixture",
+  "real_service_evidence": false,
+  "intended_case": "candidate happy path; validators determine the observed result",
+  "site_code": "DEMO-SITE-01",
+  "asset_serial": "FP-TEST-001",
+  "installed_filters": "SED-5M, CARBON-10, UF-01",
+  "pressure_before_kpa": 200,
+  "pressure_after_kpa": 300,
+  "lineage": {
+    "before.png": "generated without an input image",
+    "after.png": "generated as an edit using before.png as identity reference",
+    "serial-gauge.png": "generated as an edit using after.png as identity reference"
+  },
+  "files": [
+    {"name":"before.png","bytes":2309701,"width":1254,"height":1254,"sha256":"3510d18adbabe7a2b1c28318b65f1654bfaf34c7f380012f230488725ec0218c"},
+    {"name":"after.png","bytes":2146125,"width":1254,"height":1254,"sha256":"f4c015065b50dfe6ebf30b6e18c53067c80dd48811dd59a8c96aedf48cb29173"},
+    {"name":"serial-gauge.png","bytes":2014868,"width":1254,"height":1254,"sha256":"026e18e5bb0ecf19a462f11162a96d87ad1916a592d9072118ece8232ffc5aa0"}
+  ],
+  "disclosure_text": ["SYNTHETIC TEST FIXTURE", "NOT A REAL SERVICE"],
+  "source_prompts": "PROMPTS.md",
+  "pinata": {
+    "uploaded": true,
+    "uploaded_at": "2026-09-03T04:56:28.512Z",
+    "gateway_verified_at": "2026-09-03T04:59:22.0937241Z",
+    "cids": {
+      "before.png": "bafybeiast2zxtzhi3huvyryujdt7f345q6o2aahrm5xpz34luxdwx4eqym",
+      "after.png": "bafybeiflykspvnvoegoic2c3e5uyxbwawqjkquk3xv56w5g3iciwdkra6e",
+      "serial-gauge.png": "bafybeibcnfcvm2hvz72hsb7kyexh7htlogxqc3ldncivk6ufucfawtav5q"
+    },
+    "gateway_urls": {
+      "before.png": "https://gateway.pinata.cloud/ipfs/bafybeiast2zxtzhi3huvyryujdt7f345q6o2aahrm5xpz34luxdwx4eqym",
+      "after.png": "https://gateway.pinata.cloud/ipfs/bafybeiflykspvnvoegoic2c3e5uyxbwawqjkquk3xv56w5g3iciwdkra6e",
+      "serial-gauge.png": "https://gateway.pinata.cloud/ipfs/bafybeibcnfcvm2hvz72hsb7kyexh7htlogxqc3ldncivk6ufucfawtav5q"
+    },
+    "exact_byte_hashes_verified": true
+  },
+  "live_genlayer_result": "NOT_RUN"
+}

@@ -1,0 +1,20 @@
+{
+  "checked_at": "2026-09-03",
+  "source_page": "https://www.aquamasterwater.co.uk/maintenance-and-servicing/",
+  "publisher": "Aquamaster Water Treatment Ltd",
+  "category": "public-service-gallery-insufficient-identity",
+  "assertion": "Published service photographs, not a verified before/after/serial triplet for one work order.",
+  "expected_safety_property": "Must not authorize payment solely from page captions, model names or a combination of unrelated service photographs.",
+  "rights": "Third-party copyright; source links and hashes only. No copied images distributed in this repository.",
+  "preflight_scope": "HTTP retrieval from development machine, without redirects. GenLayer validator retrieval and live model assessment are not yet verified.",
+  "images": [
+    {"url":"https://www.aquamasterwater.co.uk/wp-content/uploads/2021/02/Dometic-RO600c-reverse-osmosis-machine-being-serviced.jpg","status":200,"bytes":6453,"sha256":"052fd9d7f006da2e7574345b4bd0d4e87d3521b771041efc4b5068727f240537","content_type":"image/jpeg"},
+    {"url":"https://www.aquamasterwater.co.uk/wp-content/uploads/2021/02/Dometic-RO600C-water-purifier.jpg","status":200,"bytes":5094,"sha256":"7b1ed07762c9ab50ee89ffc396b5a6f544fa97f889c837ea80cf9adbedede82c","content_type":"image/jpeg"},
+    {"url":"https://www.aquamasterwater.co.uk/wp-content/uploads/2021/02/Hobart-RO600C-showing-filter-housing.jpg","status":200,"bytes":5955,"sha256":"fd0aae086fa914ac177aa8ee5bbf175a2f9964be3a1d295506e4ad6714f4c5c6","content_type":"image/jpeg"}
+  ],
+  "other_sources_reviewed": [
+    {"url":"https://www.ignitorlabs.com/how-to-replace-the-ultra-filter-cartridge-on-the-vzn-441v-ultrafiltration-system/","use":"Published training sequence and explicit cartridge serial recording; not proof of one paid job."},
+    {"url":"https://www.3m.com.my/3M/en_MY/water-quality-my/applications/commercial-food-service-water-filtration/replacement-cartridges/","use":"Search index candidate; direct page fetch returned 404. Not an accepted live fixture."}
+  ],
+  "positive_visual_fixture": "NOT_FOUND_IN_REVIEWED_SOURCES"
+}

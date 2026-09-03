@@ -1,0 +1,27 @@
+{
+  "date": "2026-09-03",
+  "contract_source_sha256": "d9c9843009c1ee9810302957bcaf9650c305e0ccf7dbf3f5283c7abaffad5bc6",
+  "python_tests": {"passed":37,"failed":0,"mode":"Direct Mode with mocked web/model plus pure/static/fixture-integrity tests","observation_combinations_in_exhaustive_test":729},
+  "sdk_archive":"v0.3.0-rc7",
+  "exact_sdk_dependency":"11rhn002yfajawsz7fai6mykznbxkxs6l91iskj5cm82c92qhy3v",
+  "genvm_lint":"passed",
+  "genvm_validation":"passed",
+  "genvm_typecheck":"passed",
+  "frontend_tests":{"passed":10,"failed":0},
+  "frontend_typecheck":"passed",
+  "frontend_lint":"passed; application source and tests only, excluding unmodified scaffold UI catalog",
+  "frontend_build":"passed",
+  "build_warnings":["SDK bundle exceeds 500 kB","upstream module.register deprecation","Vite native config JSON import warning","Vinext route classification unknown"],
+  "known_dependency_advisories_at_last_install":0,
+  "browser_wallet_e2e":"not_run",
+  "webmcp_runtime_validation":"not_run",
+  "live_model_evaluation":"first deployment failed closed because three images exceeded the active validator limit; corrected source awaits redeployment",
+  "onchain_transactions":[
+    "0x49da067341915a9addbd541902f859d050f944447cb5dd5734d556b1fc79ad35",
+    "0xdc30257c36b96440448e56f394de575716394f8eaee1370a723bd3179ce7dba2",
+    "0x303e7f1390015c702e08ad9493d462c82124476371f517b8d45bda35aee08995",
+    "0x49bdcdd35e7f6a154ccaed5d03235509353bc060b3728e13b33b8e72cf4e1f48"
+  ],
+  "deployment_ready":true,
+  "superseded_contract":"0x404c3A6d50B04B93b8e4F8a9f7c394CE21adeeBA"
+}

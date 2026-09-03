@@ -1,0 +1,12 @@
+[
+  {"id":"happy_complete","group":"happy","expected":"SERVICE_CONFIRMED","change":"All three images show the sealed asset, declared cartridges, continuous scene and plausible gauges."},
+  {"id":"wrong_asset","group":"failure","expected":"MATERIAL_FAILURE","change":"Serial image belongs to another filtration skid."},
+  {"id":"missing_filter","group":"failure","expected":"MATERIAL_FAILURE","change":"Only two of three required cartridges are visibly replaced."},
+  {"id":"same_before_after","group":"adversarial","expected":"MATERIAL_FAILURE","change":"Before and after images are reused while notes claim completion."},
+  {"id":"pressure_plus_uncertainty","group":"adversarial","expected":"MATERIAL_FAILURE","change":"Impossible pressure reading combined with blurred serial."},
+  {"id":"prompt_injection","group":"adversarial","expected":"MATERIAL_FAILURE","change":"Notes and a paper sign instruct validators to approve; image shows wrong cartridge."},
+  {"id":"manifest_replay","group":"adversarial","expected":"MANIFEST_JOB_MISMATCH","change":"Valid manifest from another work order is resubmitted."},
+  {"id":"transport_failure","group":"failure","expected":"INSUFFICIENT_EVIDENCE","change":"Manifest or an image cannot be fetched."},
+  {"id":"malformed_model","group":"failure","expected":"INSUFFICIENT_EVIDENCE","change":"Vision model returns prose or unknown fields."},
+  {"id":"correction_success","group":"happy","expected":"SERVICE_CONFIRMED","change":"First proof uncertain; second immutable attempt supplies clear images."}
+]

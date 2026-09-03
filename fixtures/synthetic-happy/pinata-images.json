@@ -1,0 +1,37 @@
+{
+  "uploaded_at": "2026-09-03T04:56:28.512Z",
+  "complete": true,
+  "files": {
+    "before.png": {
+      "cid": "bafybeiast2zxtzhi3huvyryujdt7f345q6o2aahrm5xpz34luxdwx4eqym",
+      "pin_size_bytes": 2310160,
+      "content_bytes": 2309701,
+      "sha256": "3510d18adbabe7a2b1c28318b65f1654bfaf34c7f380012f230488725ec0218c",
+      "timestamp": "2026-09-03T04:56:24.592Z",
+      "duplicate": false,
+      "gateway_url": "https://gateway.pinata.cloud/ipfs/bafybeiast2zxtzhi3huvyryujdt7f345q6o2aahrm5xpz34luxdwx4eqym",
+      "gateway_verified": true
+    },
+    "after.png": {
+      "cid": "bafybeiflykspvnvoegoic2c3e5uyxbwawqjkquk3xv56w5g3iciwdkra6e",
+      "pin_size_bytes": 2146584,
+      "content_bytes": 2146125,
+      "sha256": "f4c015065b50dfe6ebf30b6e18c53067c80dd48811dd59a8c96aedf48cb29173",
+      "timestamp": "2026-09-03T04:56:26.191Z",
+      "duplicate": false,
+      "gateway_url": "https://gateway.pinata.cloud/ipfs/bafybeiflykspvnvoegoic2c3e5uyxbwawqjkquk3xv56w5g3iciwdkra6e",
+      "gateway_verified": true
+    },
+    "serial-gauge.png": {
+      "cid": "bafybeibcnfcvm2hvz72hsb7kyexh7htlogxqc3ldncivk6ufucfawtav5q",
+      "pin_size_bytes": 2015276,
+      "content_bytes": 2014868,
+      "sha256": "026e18e5bb0ecf19a462f11162a96d87ad1916a592d9072118ece8232ffc5aa0",
+      "timestamp": "2026-09-03T04:56:27.732Z",
+      "duplicate": false,
+      "gateway_url": "https://gateway.pinata.cloud/ipfs/bafybeibcnfcvm2hvz72hsb7kyexh7htlogxqc3ldncivk6ufucfawtav5q",
+      "gateway_verified": true
+    }
+  },
+  "gateway_verified_at": "2026-09-03T04:59:22.0937241Z"
+}
