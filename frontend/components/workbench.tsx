@@ -70,7 +70,7 @@ const encoded = (value: unknown) => {
   return abi.calldata.decode(new Uint8Array(value.raw));
 };
 
-export function Workbench() {
+export function Workbench({ connectNonce = 0 }: { connectNonce?: number }) {
   const [wallet, setWallet] = useState(''),
     [notice, setNotice] = useState(''),
     [busy, setBusy] = useState(false),
@@ -326,11 +326,8 @@ export function Workbench() {
     }
   }
   useEffect(() => {
-    const requested = () => void connect();
-    window.addEventListener('filterproof:connect-wallet', requested);
-    return () =>
-      window.removeEventListener('filterproof:connect-wallet', requested);
-  }, []);
+    if (connectNonce > 0) queueMicrotask(() => void connect());
+  }, [connectNonce]);
   async function verifyPublishedRun() {
     setBusy(true);
     setNotice('Reading the published StudioNet lifecycle…');

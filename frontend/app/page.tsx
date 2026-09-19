@@ -29,6 +29,7 @@ async function sha(bytes: ArrayBuffer) {
 
 export default function Home() {
   const [section, setSection] = useState('proof');
+  const [connectNonce, setConnectNonce] = useState(0);
   const [manifest, setManifest] = useState('');
   const [digest, setDigest] = useState('');
   const prepared = useRef({ manifest: '', sha256: '' });
@@ -198,13 +199,7 @@ export default function Home() {
             className="header-wallet"
             onClick={() => {
               setSection('orders');
-              window.setTimeout(
-                () =>
-                  window.dispatchEvent(
-                    new Event('filterproof:connect-wallet'),
-                  ),
-                0,
-              );
+              setConnectNonce((value) => value + 1);
             }}
           >
             Connect wallet
@@ -428,7 +423,7 @@ export default function Home() {
             </div>
           </TabsContent>
           <TabsContent value="orders">
-            <Workbench />
+            <Workbench connectNonce={connectNonce} />
           </TabsContent>
         </Tabs>
         <footer>
