@@ -305,9 +305,12 @@ export function Workbench({ connectNonce = 0 }: { connectNonce?: number }) {
       const provider = (window as unknown as { ethereum?: Provider }).ethereum;
       if (!provider)
         throw new Error('Install an EIP-1193 browser wallet to connect.');
-      const accounts = (await provider.request({
-        method: 'eth_requestAccounts',
+      const authorized = (await provider.request({
+        method: 'eth_accounts',
       })) as string[];
+      const accounts = authorized.length
+        ? authorized
+        : ((await provider.request({ method: 'eth_requestAccounts' })) as string[]);
       if (!addressOK(accounts[0]))
         throw new Error('No valid wallet account selected.');
       await provider.request({

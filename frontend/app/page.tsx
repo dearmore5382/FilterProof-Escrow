@@ -31,6 +31,13 @@ export default function Home() {
   const [section, setSection] = useState('proof');
   const [connectNonce, setConnectNonce] = useState(0);
   const [headerWalletMessage, setHeaderWalletMessage] = useState('');
+  const walletError = (error: unknown) => {
+    const value = error as { code?: number; message?: string; shortMessage?: string };
+    if (value?.code === 4001) return 'Connection rejected in the wallet. Please try again.';
+    if (value?.code === -32002)
+      return 'A wallet request is already open. Open the wallet extension and finish or reject it, then retry.';
+    return value?.shortMessage || value?.message || `Wallet error${value?.code ? ` (${value.code})` : ''}.`;
+  };
   const [manifest, setManifest] = useState('');
   const [digest, setDigest] = useState('');
   const prepared = useRef({ manifest: '', sha256: '' });
@@ -211,17 +218,22 @@ export default function Home() {
                 return;
               }
               try {
-                setHeaderWalletMessage('Choose an account in your wallet…');
-                await provider.request({ method: 'eth_requestAccounts' });
+                const existing = (await provider.request({
+                  method: 'eth_accounts',
+                })) as string[];
+                const accounts = existing.length
+                  ? existing
+                  : ((setHeaderWalletMessage('Choose an account in your wallet…'),
+                    await provider.request({
+                      method: 'eth_requestAccounts',
+                    })) as string[]);
+                if (!Array.isArray(accounts) || !accounts[0])
+                  throw new Error('The wallet returned no account. Unlock it and try again.');
                 setSection('orders');
                 setConnectNonce((value) => value + 1);
                 setHeaderWalletMessage('');
               } catch (error) {
-                setHeaderWalletMessage(
-                  error instanceof Error
-                    ? error.message
-                    : 'Wallet connection was cancelled.',
-                );
+                setHeaderWalletMessage(walletError(error));
               }
             }}
           >
