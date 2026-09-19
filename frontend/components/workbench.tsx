@@ -325,6 +325,12 @@ export function Workbench() {
       setBusy(false);
     }
   }
+  useEffect(() => {
+    const requested = () => void connect();
+    window.addEventListener('filterproof:connect-wallet', requested);
+    return () =>
+      window.removeEventListener('filterproof:connect-wallet', requested);
+  }, []);
   async function verifyPublishedRun() {
     setBusy(true);
     setNotice('Reading the published StudioNet lifecycle…');
@@ -609,9 +615,9 @@ export function Workbench() {
           <p className="eyebrow">ON-CHAIN WORKSPACE</p>
           <h2>Work orders & settlement</h2>
         </div>
-        <Button onClick={connect} disabled={!configured || busy}>
-          {wallet ? 'Reconnect wallet' : 'Connect wallet'}
-        </Button>
+        <span className="wallet-state">
+          {wallet ? `Connected · ${wallet.slice(0, 6)}…${wallet.slice(-4)}` : 'Wallet not connected'}
+        </span>
       </div>
       <p className="muted">
         Studionet · Chain {studionet.id} ·{' '}

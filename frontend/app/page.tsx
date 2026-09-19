@@ -28,6 +28,7 @@ async function sha(bytes: ArrayBuffer) {
 }
 
 export default function Home() {
+  const [section, setSection] = useState('proof');
   const [manifest, setManifest] = useState('');
   const [digest, setDigest] = useState('');
   const prepared = useRef({ manifest: '', sha256: '' });
@@ -189,9 +190,26 @@ export default function Home() {
             <small>COMMERCIAL WATER SYSTEMS</small>
           </div>
         </div>
-        <span className="network">
-          <i /> Studionet · Audit in progress
-        </span>
+        <div className="header-actions">
+          <span className="network">
+            <i /> Studionet · Verified production
+          </span>
+          <Button
+            className="header-wallet"
+            onClick={() => {
+              setSection('orders');
+              window.setTimeout(
+                () =>
+                  window.dispatchEvent(
+                    new Event('filterproof:connect-wallet'),
+                  ),
+                0,
+              );
+            }}
+          >
+            Connect wallet
+          </Button>
+        </div>
       </header>
       <main className="shell">
         <div className="page-heading">
@@ -213,7 +231,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <Tabs defaultValue="proof">
+        <Tabs value={section} onValueChange={setSection}>
           <TabsList className="workflow-tabs">
             <TabsTrigger value="orders">
               <ClipboardCheck /> Work orders & transactions
