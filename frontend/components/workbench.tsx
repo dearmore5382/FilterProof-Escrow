@@ -14,12 +14,16 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import deployment from '@/lib/deployment.json';
 import {
   addressOK,
+  same,
   hashOK,
   uint,
   genAmount,
   parseJob,
   assertReceipt,
   verifyReadback,
+  verifyNativeTransfer,
+  settlementMethod,
+  verifiedStage,
   loadJournal,
 } from '@/lib/protocol.mjs';
 
@@ -34,10 +38,12 @@ type Entry = {
   value: string;
   stage: string;
   detail: string;
+  childHash?: string;
   createdAt: string;
 };
 type Job = ReturnType<typeof parseJob>;
 const address = deployment.contractAddress as `0x${string}`;
+const explorer = 'https://explorer-studio.genlayer.com';
 const configured =
   addressOK(address) &&
   /^[a-f0-9]{64}$/.test(deployment.sourceSha256) &&
@@ -183,13 +189,38 @@ export function Workbench() {
               })
             : undefined;
         verifyReadback(record, String(returned), current, attempt);
+        const childHashes = settlementMethod(record.method)
+          ? ((tx as unknown as { triggered_transactions?: string[] })
+              .triggered_transactions ?? [])
+          : [];
+        const children = await Promise.all(
+          childHashes.map((hash) =>
+            client.getTransaction({
+              hash: hash as Parameters<
+                typeof client.getTransaction
+              >[0]['hash'],
+            }),
+          ),
+        );
+        const transfer = verifyNativeTransfer(
+          tx,
+          children,
+          record,
+          current,
+        );
         save(
           rowsRef.current.map((r) =>
             r.hash === record.hash
               ? {
                   ...r,
-                  stage: 'READBACK_VERIFIED',
-                  detail: `${String(returned)} · Job ${id}`,
+                  stage: transfer.stage,
+                  childHash: transfer.childHash,
+                  detail:
+                    transfer.stage === 'TRANSFER_PENDING'
+                      ? `${String(returned)} · Job ${id} · awaiting native transfer finality`
+                      : transfer.stage === 'TRANSFER_VERIFIED'
+                        ? `${String(returned)} · Job ${id} · native transfer ${transfer.childHash}`
+                        : `${String(returned)} · Job ${id}`,
                 }
               : r,
           ),
@@ -232,7 +263,9 @@ export function Workbench() {
       if (polling) return;
       polling = true;
       try {
-        for (const r of rowsRef.current.filter((r) => r.stage === 'PENDING'))
+        for (const r of rowsRef.current.filter((r) =>
+          ['PENDING', 'TRANSFER_PENDING'].includes(r.stage),
+        ))
           await reconcile(r);
       } finally {
         polling = false;
@@ -292,6 +325,68 @@ export function Workbench() {
       setBusy(false);
     }
   }
+  async function verifyPublishedRun() {
+    setBusy(true);
+    setNotice('Reading the published StudioNet lifecycle…');
+    try {
+      await parity();
+      const id = deployment.verifiedRun.jobId;
+      const current = await readJob(id);
+      if (
+        current.status !== 'PAID' ||
+        current.held !== '0' ||
+        current.paid !== current.bounty ||
+        current.refunded !== '0'
+      )
+        throw new Error('Published job accounting no longer matches PAID readback.');
+      const [parent, child] = await Promise.all([
+        client.getTransaction({
+          hash: deployment.verifiedRun.settleTx as Parameters<
+            typeof client.getTransaction
+          >[0]['hash'],
+        }),
+        client.getTransaction({
+          hash: deployment.verifiedRun.transferTx as Parameters<
+            typeof client.getTransaction
+          >[0]['hash'],
+        }),
+      ]);
+      if (
+        !same(parent.hash ?? parent.txId, deployment.verifiedRun.settleTx) ||
+        !same(parent.to_address ?? parent.recipient, address) ||
+        (parent.statusName ?? parent.status) !== 'FINALIZED'
+      )
+        throw new Error('Published settlement transaction is not finalized.');
+      const transfer = verifyNativeTransfer(
+        parent,
+        [child],
+        {
+          hash: deployment.verifiedRun.settleTx,
+          chainId: studionet.id,
+          sender: current.operator,
+          contract: address,
+          method: 'execute_release',
+          args: [id],
+          value: '0',
+          stage: 'PENDING',
+          detail: '',
+          createdAt: '',
+        },
+        current,
+      );
+      if (transfer.stage !== 'TRANSFER_VERIFIED')
+        throw new Error('Published native payout is not finalized yet.');
+      setJobId(id);
+      setJob(current);
+      setNotice(
+        `Verified live job ${id}: PAID readback and exact native transfer ${transfer.childHash}.`,
+      );
+    } catch (e) {
+      setNotice(messageOf(e));
+    } finally {
+      setBusy(false);
+    }
+  }
   async function send(method: string, args: (string | bigint)[], value = 0n) {
     if (!navigator.locks) {
       setNotice(
@@ -331,7 +426,7 @@ export function Workbench() {
           'A prior submission is unresolved. Recover its transaction hash first.',
         );
       rowsRef.current = loadJournal(localStorage.getItem(journalKey));
-      if (rowsRef.current.some((r) => r.stage !== 'READBACK_VERIFIED'))
+      if (rowsRef.current.some((r) => !verifiedStage(r.stage)))
         throw new Error(
           'Reconcile the existing transaction before submitting another.',
         );
@@ -506,7 +601,7 @@ export function Workbench() {
     !ready ||
     busy ||
     !!journalError ||
-    rows.some((r) => r.stage !== 'READBACK_VERIFIED');
+    rows.some((r) => !verifiedStage(r.stage));
   return (
     <section className="panel">
       <div className="panel-title">
@@ -523,6 +618,43 @@ export function Workbench() {
         {configured ? address : 'Contract not configured'}
       </p>
       <output className="feedback">{notice}</output>
+      <section className="live-verification" aria-label="Verified live lifecycle">
+        <div>
+          <p className="eyebrow">PUBLISHED STUDIO NETWORK PROOF</p>
+          <h3>Complete funded lifecycle · Job {deployment.verifiedRun.jobId}</h3>
+          <p className="muted">
+            Create, exact funding, proof, assessment and payout are public. The
+            verification button rereads PAID accounting and the finalized child
+            transfer from StudioNet.
+          </p>
+        </div>
+        <Button
+          variant="outline"
+          onClick={verifyPublishedRun}
+          disabled={!configured || busy}
+        >
+          Verify live payout
+        </Button>
+        <div className="live-links">
+          {[
+            ['Create', deployment.verifiedRun.createTx],
+            ['Fund', deployment.verifiedRun.fundTx],
+            ['Proof', deployment.verifiedRun.proofTx],
+            ['Assess', deployment.verifiedRun.assessTx],
+            ['Payout', deployment.verifiedRun.settleTx],
+            ['Native transfer', deployment.verifiedRun.transferTx],
+          ].map(([label, hash]) => (
+            <a
+              key={label}
+              href={`${explorer}/transactions/${hash}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {label}
+            </a>
+          ))}
+        </div>
+      </section>
       {journalError && (
         <div>
           <p role="alert">{journalError}</p>
@@ -590,8 +722,8 @@ export function Workbench() {
               </dl>
               <p className="muted">
                 Amounts above are in attoGEN (10¹⁸ attoGEN = 1 GEN). Settlement
-                readback confirms accounting; verify emitted transfer execution
-                separately.
+                is shown as complete only after authoritative accounting
+                readback and the exact emitted native transfer both finalize.
               </p>
               <div className="actions">
                 {[
@@ -713,13 +845,22 @@ export function Workbench() {
                   {row.method} · {row.stage}
                 </strong>
                 <a
-                  href={`${studionet.blockExplorers!.default.url}/transactions/${row.hash}`}
+                  href={`${explorer}/transactions/${row.hash}`}
                   target="_blank"
                   rel="noreferrer"
                 >
                   {row.hash}
                 </a>
                 <p>{row.detail}</p>
+                {row.childHash && (
+                  <a
+                    href={`${explorer}/transactions/${row.childHash}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Native transfer: {row.childHash}
+                  </a>
+                )}
                 <Button
                   variant="outline"
                   disabled={busy || !configured}

@@ -155,6 +155,37 @@ export function verifyReadback(record, returned, job, attempt) {
     throw new Error('Refund accounting mismatch.');
   return true;
 }
+export const settlementMethod = (method) =>
+  ['execute_release', 'execute_refund', 'recover_expired'].includes(method);
+export const verifiedStage = (stage) =>
+  stage === 'READBACK_VERIFIED' || stage === 'TRANSFER_VERIFIED';
+export function verifyNativeTransfer(parent, children, record, job) {
+  if (!settlementMethod(record.method))
+    return { stage: 'READBACK_VERIFIED', childHash: '' };
+  const hashes = parent?.triggered_transactions;
+  if (!Array.isArray(hashes) || hashes.length === 0)
+    return { stage: 'TRANSFER_PENDING', childHash: '' };
+  if (hashes.length !== 1 || children.length !== 1)
+    throw new Error('Settlement must emit exactly one native transfer.');
+  const child = children[0];
+  const childHash = String(child?.hash ?? child?.txId ?? '');
+  if (!hashOK(childHash) || !same(childHash, hashes[0]))
+    throw new Error('Native transfer hash does not match the parent receipt.');
+  if ((child.statusName ?? child.status) !== 'FINALIZED')
+    return { stage: 'TRANSFER_PENDING', childHash };
+  const recipient =
+    record.method === 'execute_release' ? job.technician : job.operator;
+  if (
+    (child.type !== undefined && Number(child.type) !== 0) ||
+    !same(child.from_address ?? child.sender, record.contract) ||
+    !same(child.to_address ?? child.recipient, recipient) ||
+    !same(child.triggered_by, record.hash) ||
+    String(child.value) !== String(job.bounty) ||
+    child.value_credited !== true
+  )
+    throw new Error('Native transfer identity, recipient, or value mismatch.');
+  return { stage: 'TRANSFER_VERIFIED', childHash };
+}
 export function loadJournal(text) {
   if (!text) return [];
   const rows = JSON.parse(text);
@@ -169,6 +200,7 @@ export function loadJournal(text) {
         !Array.isArray(r.args) ||
         typeof r.method !== 'string' ||
         typeof r.value !== 'string' ||
+        (r.childHash !== undefined && r.childHash !== '' && !hashOK(r.childHash)) ||
         !Number.isInteger(r.chainId),
     )
   )

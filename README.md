@@ -8,6 +8,13 @@ A focused GenLayer DApp for hash-bound evidence of commercial water-filter cartr
 
 Cloudflare frontend: https://filterproof-escrow.dearmorescheuer5382.workers.dev
 
+The canonical Cloudflare build exposes wallet writes for the verified
+Studionet contract. Its transaction journal verifies finality, consensus,
+execution, authoritative state/accounting readback and, for settlement, the
+exact finalized native child transfer before reporting completion. A read-only
+live-run verifier lets a reviewer reproduce the published PAID lifecycle from
+a fresh browser. See `verification/STEWARD_RESPONSE.md`.
+
 - Contract and local test suite implemented.
 - The escrow at `0xf99765498d9F2DF004Ce5B117B78fB5EBb68CD29` passed all four frozen unsigned preview cases using its actual classifier; the current local suite has 201 passing tests. See `verification/ESCROW_PREVIEW_RESULTS.md`. No funds were sent by the preview sequence.
 - The same escrow completed one explicitly authorized 0.1 GEN testnet lifecycle: five finalized majority-agree writes, SERVICE_CONFIRMED, PAID, exact child transfer and zero ending contract balance. See `verification/FUNDED_HAPPY_PATH.md`. The fixture is synthetic and the remaining adversarial matrix is open.

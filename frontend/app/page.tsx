@@ -206,10 +206,10 @@ export default function Home() {
         <div className="gate">
           <LockKeyhole size={20} />
           <div>
-            <strong>Verified testnet contract — read-only release</strong>
+            <strong>Verified testnet contract — wallet writes enabled</strong>
             <p>
               {deployment.contractAddress} · Source {deployment.sourceSha256.slice(0, 12)}…
-              {' '}Evidence preparation is available; transaction signing remains disabled until the full live audit passes.
+              {' '}Each state change requires an explicit wallet signature and authoritative contract readback.
             </p>
           </div>
         </div>

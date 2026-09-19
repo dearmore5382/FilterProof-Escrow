@@ -1,5 +1,14 @@
 {
   "contractAddress": "0xf99765498d9F2DF004Ce5B117B78fB5EBb68CD29",
   "sourceSha256": "326e46f225bc2e88e0cefb581a8b5cbf450f3322017993098794bdcf5d3ff2a9",
-  "liveAuditVerified": false
+  "liveAuditVerified": true,
+  "verifiedRun": {
+    "jobId": "0",
+    "createTx": "0x93be313c7ebb5186bfb1023e727afc32f155383191ab664c309ed173e4ab7d6f",
+    "fundTx": "0x7b11c7415357a49bbd732050f976e45facaed9a410d56aa525e78c16c92cae6d",
+    "proofTx": "0x808f2a87766aab67b108b83a61a924bec8b7790832caa58d802f34eaf49fbda1",
+    "assessTx": "0x551b37170600513a1b5430f42c14f1d383c4a8a95f91b2ff61f460d149a3a732",
+    "settleTx": "0x83ebce382ad98808764259b883dbd2961e77e0ac81cf128ec88d66215469ef39",
+    "transferTx": "0x0190b34ed0e8967295b413cee06a43573de4b0c35296c196ce5b815809f2dcff"
+  }
 }

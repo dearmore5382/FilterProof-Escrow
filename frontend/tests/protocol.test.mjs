@@ -6,6 +6,8 @@ import {
   addressOK,
   assertReceipt,
   verifyReadback,
+  verifyNativeTransfer,
+  verifiedStage,
   loadJournal,
 } from '../lib/protocol.mjs';
 const address = '0x' + '1'.repeat(40),
@@ -114,4 +116,57 @@ test('corrupt journals fail closed', () => {
 test('fractional GEN does not round or reject leading fractional zeros', () => {
   assert.equal(genAmount('0.1'), 100000000000000000n);
   assert.equal(genAmount('0.000000000000000001'), 1n);
+});
+test('settlement stays pending until its exact native transfer finalizes', () => {
+  const settlement = {
+    ...record,
+    method: 'execute_release',
+    value: '0',
+  };
+  const job = {
+    operator: '0x' + '3'.repeat(40),
+    technician: '0x' + '4'.repeat(40),
+    bounty: '1000',
+  };
+  assert.equal(
+    verifyNativeTransfer({ triggered_transactions: [] }, [], settlement, job)
+      .stage,
+    'TRANSFER_PENDING',
+  );
+  const childHash = '0x' + 'b'.repeat(64);
+  const child = {
+    hash: childHash,
+    status: 'FINALIZED',
+    type: 0,
+    from_address: contract,
+    to_address: job.technician,
+    triggered_by: hash,
+    value: 1000,
+    value_credited: true,
+  };
+  const result = verifyNativeTransfer(
+    { triggered_transactions: [childHash] },
+    [child],
+    settlement,
+    job,
+  );
+  assert.deepEqual(result, { stage: 'TRANSFER_VERIFIED', childHash });
+  assert.equal(verifiedStage(result.stage), true);
+  assert.equal(
+    verifyNativeTransfer(
+      { triggered_transactions: [childHash] },
+      [{ ...child, type: undefined }],
+      settlement,
+      job,
+    ).stage,
+    'TRANSFER_VERIFIED',
+  );
+  assert.throws(() =>
+    verifyNativeTransfer(
+      { triggered_transactions: [childHash] },
+      [{ ...child, to_address: job.operator }],
+      settlement,
+      job,
+    ),
+  );
 });
