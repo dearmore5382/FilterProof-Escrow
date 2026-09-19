@@ -30,6 +30,7 @@ async function sha(bytes: ArrayBuffer) {
 export default function Home() {
   const [section, setSection] = useState('proof');
   const [connectNonce, setConnectNonce] = useState(0);
+  const [headerWalletMessage, setHeaderWalletMessage] = useState('');
   const [manifest, setManifest] = useState('');
   const [digest, setDigest] = useState('');
   const prepared = useRef({ manifest: '', sha256: '' });
@@ -197,13 +198,40 @@ export default function Home() {
           </span>
           <Button
             className="header-wallet"
-            onClick={() => {
-              setSection('orders');
-              setConnectNonce((value) => value + 1);
+            onClick={async () => {
+              const provider = (
+                window as unknown as {
+                  ethereum?: {
+                    request: (request: { method: string }) => Promise<unknown>;
+                  };
+                }
+              ).ethereum;
+              if (!provider) {
+                setHeaderWalletMessage('Install an EIP-1193 wallet first.');
+                return;
+              }
+              try {
+                setHeaderWalletMessage('Choose an account in your wallet…');
+                await provider.request({ method: 'eth_requestAccounts' });
+                setSection('orders');
+                setConnectNonce((value) => value + 1);
+                setHeaderWalletMessage('');
+              } catch (error) {
+                setHeaderWalletMessage(
+                  error instanceof Error
+                    ? error.message
+                    : 'Wallet connection was cancelled.',
+                );
+              }
             }}
           >
             Connect wallet
           </Button>
+          {headerWalletMessage && (
+            <output className="header-wallet-message">
+              {headerWalletMessage}
+            </output>
+          )}
         </div>
       </header>
       <main className="shell">
