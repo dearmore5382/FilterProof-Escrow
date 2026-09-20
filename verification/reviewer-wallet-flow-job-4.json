@@ -1,0 +1,54 @@
+{
+  "scope": "additional live browser-wallet evidence; create and exact funding only",
+  "chain_id": 61999,
+  "contract": "0xf99765498d9F2DF004Ce5B117B78fB5EBb68CD29",
+  "job_id": "4",
+  "operator": "0xFf36b56CcA032C559e52e2A4F20c2C594B02Fe37",
+  "technician": "0x1D283b45974B0be9630DFD1deC6A62a9B72B2760",
+  "transactions": [
+    {
+      "step": "create",
+      "hash": "0xe40688fddf687aaee5b0992802ae158373099a2f207428e31ea66265e04cea52",
+      "method": "create_job",
+      "args": [
+        "Reviewer live verification",
+        "REVIEW-SITE-01",
+        "FP-REVIEW-001",
+        "SED-5M, CARBON-10, UF-01",
+        "0x1D283b45974B0be9630DFD1deC6A62a9B72B2760",
+        "1000000000000000",
+        "2026-09-20T03:14:00Z"
+      ],
+      "attached_value_atto_gen": "0",
+      "status": "FINALIZED",
+      "validator_votes": { "agree": 5, "total": 5 },
+      "execution_result": "SUCCESS",
+      "return_value": "4"
+    },
+    {
+      "step": "fund",
+      "hash": "0x4be64f414f5510bc5b40dffd4b48c8884c6d3db5c44d99a3778e5c22e20289da",
+      "method": "fund_job",
+      "args": ["4"],
+      "attached_value_atto_gen": "1000000000000000",
+      "status": "FINALIZED",
+      "validator_votes": { "agree": 5, "total": 5 },
+      "execution_result": "SUCCESS",
+      "return_value": "FUNDED"
+    }
+  ],
+  "latest_final_readback": {
+    "status": "FUNDED",
+    "title": "Reviewer live verification",
+    "site": "REVIEW-SITE-01",
+    "serial": "FP-REVIEW-001",
+    "filters": "SED-5M, CARBON-10, UF-01",
+    "recovery_after": "2026-09-20T03:14:00Z",
+    "attempts": "0",
+    "bounty_atto_gen": "1000000000000000",
+    "held_atto_gen": "1000000000000000",
+    "paid_atto_gen": "0",
+    "refunded_atto_gen": "0",
+    "contract_balance_atto_gen": "1000000000000000"
+  }
+}

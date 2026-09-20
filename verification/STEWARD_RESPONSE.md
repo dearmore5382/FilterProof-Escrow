@@ -28,6 +28,20 @@ The separately documented binding-mismatch path reaches `REFUND_AUTHORIZED`
 after two immutable failed attempts and returns the exact 0.01 GEN escrow to the
 operator through one finalized native transfer. See [REFUND_PATH_RESULTS.md](REFUND_PATH_RESULTS.md).
 
+## Additional reviewer wallet evidence
+
+A fresh browser-wallet run created Job `4` and funded its exact 0.001 GEN
+bounty. Both transactions finalized with unanimous 5/5 validator agreement:
+
+- [Create Job 4](https://explorer-studio.genlayer.com/transactions/0xe40688fddf687aaee5b0992802ae158373099a2f207428e31ea66265e04cea52)
+- [Fund Job 4](https://explorer-studio.genlayer.com/transactions/0x4be64f414f5510bc5b40dffd4b48c8884c6d3db5c44d99a3778e5c22e20289da)
+
+Latest-final readback is `FUNDED`, with bounty and held both exactly
+`1000000000000000` attoGEN and paid/refunded both zero. Exact decoded calls,
+votes and readback are documented in
+[REVIEWER_WALLET_FLOW.md](REVIEWER_WALLET_FLOW.md) and
+[reviewer-wallet-flow-job-4.json](reviewer-wallet-flow-job-4.json).
+
 ## UI transaction-state fix
 
 The frontend does not treat `FINALIZED` alone as success. It verifies, in order:
