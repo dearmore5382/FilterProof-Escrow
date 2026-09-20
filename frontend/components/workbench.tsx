@@ -70,7 +70,13 @@ const encoded = (value: unknown) => {
   return abi.calldata.decode(new Uint8Array(value.raw));
 };
 
-export function Workbench({ connectNonce = 0 }: { connectNonce?: number }) {
+export function Workbench({
+  connectNonce = 0,
+  onWalletChange,
+}: {
+  connectNonce?: number;
+  onWalletChange?: (wallet: string, message: string) => void;
+}) {
   const [wallet, setWallet] = useState(''),
     [notice, setNotice] = useState(''),
     [busy, setBusy] = useState(false),
@@ -276,6 +282,7 @@ export function Workbench({ connectNonce = 0 }: { connectNonce?: number }) {
       setWallet('');
       setReady(false);
       setNotice('Wallet or network changed. Reconnect before writing.');
+      onWalletChange?.('', 'Wallet or network changed. Reconnect before writing.');
     };
     provider?.on?.('accountsChanged', changed);
     provider?.on?.('chainChanged', changed);
@@ -298,7 +305,7 @@ export function Workbench({ connectNonce = 0 }: { connectNonce?: number }) {
       provider?.removeListener?.('chainChanged', changed);
       window.removeEventListener('storage', storage);
     };
-  }, [reconcile]);
+  }, [reconcile, onWalletChange]);
   async function connect() {
     setBusy(true);
     try {
@@ -321,8 +328,11 @@ export function Workbench({ connectNonce = 0 }: { connectNonce?: number }) {
       setWallet(accounts[0]);
       setReady(true);
       setNotice('Wallet connected. Contract source verified.');
+      onWalletChange?.(accounts[0], '');
     } catch (e) {
-      setNotice(messageOf(e));
+      const message = messageOf(e);
+      setNotice(message);
+      onWalletChange?.('', message);
       setReady(false);
     } finally {
       setBusy(false);
@@ -330,6 +340,9 @@ export function Workbench({ connectNonce = 0 }: { connectNonce?: number }) {
   }
   useEffect(() => {
     if (connectNonce > 0) queueMicrotask(() => void connect());
+    // `connectNonce` is an explicit command signal; rerunning when the
+    // freshly-created connect closure changes would reopen the wallet.
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [connectNonce]);
   async function verifyPublishedRun() {
     setBusy(true);

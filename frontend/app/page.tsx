@@ -31,6 +31,7 @@ export default function Home() {
   const [section, setSection] = useState('proof');
   const [connectNonce, setConnectNonce] = useState(0);
   const [headerWalletMessage, setHeaderWalletMessage] = useState('');
+  const [connectedWallet, setConnectedWallet] = useState('');
   const walletError = (error: unknown) => {
     const value = error as { code?: number; message?: string; shortMessage?: string };
     if (value?.code === 4001) return 'Connection rejected in the wallet. Please try again.';
@@ -229,15 +230,16 @@ export default function Home() {
                     })) as string[]);
                 if (!Array.isArray(accounts) || !accounts[0])
                   throw new Error('The wallet returned no account. Unlock it and try again.');
-                setSection('orders');
                 setConnectNonce((value) => value + 1);
-                setHeaderWalletMessage('');
+                setHeaderWalletMessage('Verifying StudioNet and contract source…');
               } catch (error) {
                 setHeaderWalletMessage(walletError(error));
               }
             }}
           >
-            Connect wallet
+            {connectedWallet
+              ? `${connectedWallet.slice(0, 6)}…${connectedWallet.slice(-4)}`
+              : 'Connect wallet'}
           </Button>
           {headerWalletMessage && (
             <output className="header-wallet-message">
@@ -462,9 +464,15 @@ export default function Home() {
               </aside>
             </div>
           </TabsContent>
-          <TabsContent value="orders">
-            <Workbench connectNonce={connectNonce} />
-          </TabsContent>
+          <div hidden={section !== 'orders'}>
+            <Workbench
+              connectNonce={connectNonce}
+              onWalletChange={(wallet, message) => {
+                setConnectedWallet(wallet);
+                setHeaderWalletMessage(message);
+              }}
+            />
+          </div>
         </Tabs>
         <footer>
           FilterProof Escrow{' '}
