@@ -25,6 +25,7 @@ import {
   verifyNativeTransfer,
   settlementMethod,
   verifiedStage,
+  hasUnresolvedWrite,
   loadJournal,
 } from '@/lib/protocol.mjs';
 
@@ -619,7 +620,7 @@ export function Workbench({
     !ready ||
     busy ||
     !!journalError ||
-    rows.some((r) => !verifiedStage(r.stage));
+    hasUnresolvedWrite(rows);
   return (
     <section className="panel">
       <div className="panel-title">

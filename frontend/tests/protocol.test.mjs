@@ -9,6 +9,7 @@ import {
   verifyReadback,
   verifyNativeTransfer,
   verifiedStage,
+  hasUnresolvedWrite,
   loadJournal,
 } from '../lib/protocol.mjs';
 const address = '0x' + '1'.repeat(40),
@@ -101,6 +102,12 @@ test('pending is not failed or resubmitted', () => {
     ).stage,
     'PENDING',
   );
+});
+test('only unresolved writes block a new wallet transaction', () => {
+  assert.equal(hasUnresolvedWrite([{ stage: 'PENDING' }]), true);
+  assert.equal(hasUnresolvedWrite([{ stage: 'TRANSFER_PENDING' }]), true);
+  assert.equal(hasUnresolvedWrite([{ stage: 'NEEDS_REVIEW' }]), false);
+  assert.equal(hasUnresolvedWrite([{ stage: 'READBACK_VERIFIED' }]), false);
 });
 test('readback mismatch blocks completion', () => {
   assert.throws(() => verifyReadback(record, 'FUNDED', { status: 'DRAFT' }));

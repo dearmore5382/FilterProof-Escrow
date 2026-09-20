@@ -165,6 +165,10 @@ export const settlementMethod = (method) =>
   ['execute_release', 'execute_refund', 'recover_expired'].includes(method);
 export const verifiedStage = (stage) =>
   stage === 'READBACK_VERIFIED' || stage === 'TRANSFER_VERIFIED';
+export const hasUnresolvedWrite = (rows) =>
+  rows.some((row) =>
+    ['PENDING', 'READBACK_REQUIRED', 'TRANSFER_PENDING'].includes(row.stage),
+  );
 export function verifyNativeTransfer(parent, children, record, job) {
   if (!settlementMethod(record.method))
     return { stage: 'READBACK_VERIFIED', childHash: '' };
