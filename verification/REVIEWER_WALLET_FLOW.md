@@ -26,7 +26,9 @@ get_accounting(4)
 The accounting fields are `bounty|held|paid|refunded|contract balance`, in
 attoGEN. This proves the browser wallet created the intended record and placed
 the exact declared 0.001 GEN bounty into contract custody. It does not claim
-that Job 4 has submitted or assessed evidence yet.
+that Job 4 has submitted or assessed evidence, reached payout/refund, or
+completed a native transfer. The separately documented Job 0 lifecycle is the
+complete end-to-end evidence.
 
 Machine-readable facts are preserved in
 [`reviewer-wallet-flow-job-4.json`](reviewer-wallet-flow-job-4.json).

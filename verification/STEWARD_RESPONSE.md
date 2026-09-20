@@ -42,6 +42,25 @@ votes and readback are documented in
 [REVIEWER_WALLET_FLOW.md](REVIEWER_WALLET_FLOW.md) and
 [reviewer-wallet-flow-job-4.json](reviewer-wallet-flow-job-4.json).
 
+### Evidence scope clarification
+
+The two evidence sets must not be conflated:
+
+- **Job 0 is the complete end-to-end lifecycle evidence.** It covers creation,
+  exact funding, technician proof submission, assessment,
+  `RELEASE_AUTHORIZED`, payout, authoritative `PAID` accounting readback and
+  the resulting finalized native transfer to the assigned technician.
+- **Job 4 is additional browser-wallet evidence only.** It independently
+  demonstrates that the updated public frontend connected a user wallet,
+  created the intended sealed work order and funded exactly 0.001 GEN. At the
+  time this response was prepared, Job 4 was `FUNDED` with zero proof attempts;
+  it must not be presented as another completed lifecycle.
+
+The current contract balance of 0.001 GEN belongs to the held Job 4 bounty.
+It is not residue from the completed Job 0 settlement. The production-readback
+script continues to verify source parity, Job 0 `PAID` accounting, parent
+finality/consensus and the exact native child transfer.
+
 ## UI transaction-state fix
 
 The frontend does not treat `FINALIZED` alone as success. It verifies, in order:
