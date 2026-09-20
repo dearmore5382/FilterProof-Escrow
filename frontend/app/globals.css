@@ -178,6 +178,15 @@ body {
   text-decoration: none;
 }
 
+.create-feedback {
+  display: block;
+  min-height: 24px;
+  margin-top: 12px;
+  color: #314f68;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
 @media (max-width: 720px) {
   .live-verification {
     grid-template-columns: 1fr;

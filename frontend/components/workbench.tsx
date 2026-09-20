@@ -24,7 +24,6 @@ import {
   verifyReadback,
   verifyNativeTransfer,
   settlementMethod,
-  verifiedStage,
   hasUnresolvedWrite,
   loadJournal,
 } from '@/lib/protocol.mjs';
@@ -447,7 +446,7 @@ export function Workbench({
           'A prior submission is unresolved. Recover its transaction hash first.',
         );
       rowsRef.current = loadJournal(localStorage.getItem(journalKey));
-      if (rowsRef.current.some((r) => !verifiedStage(r.stage)))
+      if (hasUnresolvedWrite(rowsRef.current))
         throw new Error(
           'Reconcile the existing transaction before submitting another.',
         );
@@ -847,6 +846,9 @@ export function Workbench({
             <Button type="submit" disabled={disabled}>
               Create sealed work order
             </Button>
+            <output className="create-feedback" aria-live="polite">
+              {notice}
+            </output>
           </form>
         </TabsContent>
         <TabsContent value="journal">
