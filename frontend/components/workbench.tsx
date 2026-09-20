@@ -49,7 +49,9 @@ const configured =
   addressOK(address) &&
   /^[a-f0-9]{64}$/.test(deployment.sourceSha256) &&
   deployment.liveAuditVerified;
-const client = createClient({ chain: studionet });
+// Same-origin relay avoids browser CORS/network policy failures for public RPC
+// reads. Signing methods are still routed by genlayer-js to window.ethereum.
+const client = createClient({ chain: studionet, endpoint: '/api/rpc' });
 const journalKey = 'filterproof:journal:v1';
 const intentKey = 'filterproof:submission-intent:v1';
 const asHex = (value: string) => value as `0x${string}`;
