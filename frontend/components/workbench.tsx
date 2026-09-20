@@ -86,6 +86,7 @@ export function Workbench({
     [ready, setReady] = useState(false);
   const [rows, setRows] = useState<Entry[]>([]),
     [journalError, setJournalError] = useState(''),
+    [hasIntent, setHasIntent] = useState(false),
     [job, setJob] = useState<Job | null>(null),
     [jobId, setJobId] = useState('0'),
     [recoveryHash, setRecoveryHash] = useState('');
@@ -259,10 +260,12 @@ export function Workbench({
         const initial = loadJournal(localStorage.getItem(journalKey));
         rowsRef.current = initial;
         setRows(initial);
-        if (localStorage.getItem(intentKey))
+        if (localStorage.getItem(intentKey)) {
+          setHasIntent(true);
           setJournalError(
             'An interrupted submission needs reconciliation. Recover its hash from your wallet; do not submit again.',
           );
+        }
       } catch (e) {
         setJournalError(messageOf(e));
       }
@@ -485,6 +488,7 @@ export function Workbench({
         createdAt: new Date().toISOString(),
       };
       localStorage.setItem(intentKey, JSON.stringify(intent));
+      setHasIntent(true);
       setNotice('Confirm the transaction in your wallet.');
       let hash: unknown;
       try {
@@ -502,12 +506,14 @@ export function Workbench({
           e !== null &&
           'code' in e &&
           e.code === 4001
-        )
+        ) {
           localStorage.removeItem(intentKey);
-        else
+          setHasIntent(false);
+        } else {
           setJournalError(
             'Submission outcome is unknown. Check your wallet and recover the hash before sending again.',
           );
+        }
         throw e;
       }
       if (typeof hash !== 'string' || !hashOK(hash))
@@ -529,6 +535,7 @@ export function Workbench({
       try {
         save([...rowsRef.current, record]);
         localStorage.removeItem(intentKey);
+        setHasIntent(false);
       } catch {
         rowsRef.current = [...rowsRef.current, record];
         setRows(rowsRef.current);
@@ -567,11 +574,18 @@ export function Workbench({
         ...validated,
       ]);
       localStorage.removeItem(intentKey);
+      setHasIntent(false);
       setJournalError('');
       await reconcile(entry);
     } catch (e) {
       setNotice(messageOf(e));
     }
+  }
+  function discardUnsentIntent() {
+    localStorage.removeItem(intentKey);
+    setHasIntent(false);
+    setJournalError('');
+    setNotice('Unsent submission intent cleared. You can create a new transaction.');
   }
   async function create(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -622,6 +636,15 @@ export function Workbench({
     busy ||
     !!journalError ||
     hasUnresolvedWrite(rows);
+  const blockingReason = !ready
+    ? 'Connect and verify the wallet before creating an order.'
+    : busy
+      ? 'Checking or submitting a transaction…'
+      : journalError
+        ? journalError
+        : hasUnresolvedWrite(rows)
+          ? 'An existing transaction is still pending. Open Transaction journal and recheck its hash.'
+          : '';
   return (
     <section className="panel">
       <div className="panel-title">
@@ -846,11 +869,20 @@ export function Workbench({
               separate, exact-value transaction.
             </p>
             <Button type="submit" disabled={disabled}>
-              Create sealed work order
+              {blockingReason ? 'Create unavailable' : 'Create sealed work order'}
             </Button>
             <output className="create-feedback" aria-live="polite">
-              {notice}
+              {blockingReason || notice}
             </output>
+            {journalError && hasIntent && (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={discardUnsentIntent}
+              >
+                Discard unsent intent
+              </Button>
+            )}
           </form>
         </TabsContent>
         <TabsContent value="journal">
