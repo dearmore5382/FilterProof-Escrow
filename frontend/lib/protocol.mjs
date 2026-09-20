@@ -25,6 +25,12 @@ export function genAmount(value) {
   if (!amount) throw new Error('GEN amount must be positive.');
   return amount;
 }
+export function recoveryTimestamp(value) {
+  const timestamp = new Date(String(value));
+  if (Number.isNaN(timestamp.getTime()))
+    throw new Error('Enter a valid recovery date and time.');
+  return timestamp.toISOString().replace('.000Z', 'Z');
+}
 export function parseJob(raw, money) {
   if (
     typeof raw !== 'string' ||

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   uint,
   genAmount,
+  recoveryTimestamp,
   addressOK,
   assertReceipt,
   verifyReadback,
@@ -42,6 +43,13 @@ test('amount precision and unsigned bounds', () => {
     assert.throws(() => genAmount(x));
   assert.throws(() => uint(2n ** 256n));
   assert.equal(addressOK('0x' + '0'.repeat(40)), false);
+});
+test('recovery time is canonical UTC accepted by the contract', () => {
+  assert.match(
+    recoveryTimestamp('2030-01-01T07:00'),
+    /^2030-01-01T00:00:00Z$/,
+  );
+  assert.throws(() => recoveryTimestamp('not-a-date'));
 });
 test('FINALIZED alone never passes', () => {
   assert.equal(

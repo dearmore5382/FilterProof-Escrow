@@ -18,6 +18,7 @@ import {
   hashOK,
   uint,
   genAmount,
+  recoveryTimestamp,
   parseJob,
   assertReceipt,
   verifyReadback,
@@ -575,9 +576,7 @@ export function Workbench({
     try {
       const form = new FormData(event.currentTarget);
       const get = (key: string) => formText(form, key);
-      const deadline = new Date(get('deadline'))
-        .toISOString()
-        .replace('.000Z', '');
+      const deadline = recoveryTimestamp(get('deadline'));
       if (!addressOK(get('technician')))
         throw new Error('Invalid technician address.');
       await send('create_job', [
